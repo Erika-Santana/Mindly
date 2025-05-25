@@ -2,8 +2,9 @@ package model.dao;
 
 import java.util.List;
 
+import model.entities.AddressI;
 import model.entities.Appointments;
-import model.entities.Speciality;
+import model.entities.Specialty;
 import model.entities.Professional;
 
 public interface DatabaseProfessionalDAO {
@@ -27,6 +28,9 @@ Padrão de projeto State*/
 	public Professional getProfessionalByCNPJ(String CNPJ);
 	public boolean doesProfessionalExists(String CNPJ);
 	public boolean doesProfessionalLoginExists(String login);
-	public boolean registerWorkHour(int start_hour, int end_hour, int duration, String[] dayOfWeek, Speciality ID_professional_approuch);
+	public AddressI registerAddress(AddressI address);
+	public boolean registerWorkHour(int start_hour, int end_hour, int duration, String[] dayOfWeek, Specialty ID_professional_approuch);
+	public int registerApprouch(String approuch);
+	public int registerArea(String area);
 	
 }

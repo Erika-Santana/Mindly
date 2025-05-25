@@ -39,8 +39,7 @@ public class DatabaseUserImp implements DatabaseUserDAO {
 				var preparedStatement = connection.prepareStatement(DOES_USER_EXIST)) {
 			preparedStatement.setString(1, CPF);
 			
-			  ResultSet resultSet;
-			if( resultSet = preparedStatement.executeQuery()) {
+			  try (var resultSet = preparedStatement.executeQuery()) {
 		            return resultSet.next(); 
 		        }
 		}catch(SQLException SQL){
@@ -68,6 +67,8 @@ public class DatabaseUserImp implements DatabaseUserDAO {
 	
 	
 	public boolean registerUser(Client cliente) {
+		
+		int ID = 0;
 		try (var connection = DatabaseConnection.getConnection();
 				var preparedStatement = connection.prepareStatement(INSERT_CLIENT)) {
 			AddressI address = cliente.getAddress();
@@ -79,8 +80,15 @@ public class DatabaseUserImp implements DatabaseUserDAO {
 			preparedStatement.setString(5, cliente.getPassword());
 			preparedStatement.setString(6, cliente.getLogin());
 			preparedStatement.setString(7, cliente.getProfile());
+			
 
-			return preparedStatement.execute();
+			ResultSet getIDGenerated = preparedStatement.getGeneratedKeys();
+			
+			if(getIDGenerated.next()) {
+				 ID = getIDGenerated.getInt(1);
+				 cliente.setID(ID);
+				 return true;
+			}
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();

@@ -10,7 +10,7 @@ public class Professional {
 	private int ID;
 	private String name;
 	private String trade_name;
-	private String address;
+	private AddressI address;
 	private String description;
 	private Date dataCreation;
 	private String CNPJ;
@@ -18,14 +18,13 @@ public class Professional {
 	private String login;
 	private String workImage;
 
-	public Professional(String name, String trade_name, String address, String description, Date dataCreation,
+	public Professional(String name, String trade_name, AddressI address, String description,
 			String cNPJ, String password, String login, String workImage) {
 		
 		this.name = name;
 		this.trade_name = trade_name;
 		this.address = address;
 		this.description = description;
-		this.dataCreation = dataCreation;
 		CNPJ = cNPJ;
 		this.password = password;
 		this.login = login;
@@ -71,10 +70,10 @@ public class Professional {
 	public void setTrade_name(String trade_name) {
 		this.trade_name = trade_name;
 	}
-	public String getAddress() {
+	public AddressI getAddress() {
 		return address;
 	}
-	public void setAddress(String address) {
+	public void setAddress(AddressI address) {
 		this.address = address;
 	}
 	public String getDescription() {
