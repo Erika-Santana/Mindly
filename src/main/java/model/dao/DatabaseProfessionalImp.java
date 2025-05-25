@@ -202,9 +202,13 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO{
 				var preparedStatement = connection.prepareStatement(INSERT_DAYS)){
 
 			        for (String day : daysOfWeek) {
-			            preparedStatement.setInt(1, ID_appointment);
-			            preparedStatement.setString(2, day); 
-			            preparedStatement.addBatch(); 
+			        	if(day != null || !day.isBlank()) {
+			        		preparedStatement.setInt(1, ID_appointment);
+				            preparedStatement.setString(2, day); 
+				            preparedStatement.addBatch(); 
+			        	}else {
+			        		return false;
+			        	}
 			        }
 
 			        int[] results = preparedStatement.executeBatch(); 

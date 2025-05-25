@@ -105,34 +105,34 @@
 					<div class="mb-3 w-full">		
 						<ul class="items-center w-full text-sm p-2 font-medium text-gray-900 
 						bg-gray-50 border border-gray-200 rounded-lg sm:flex ">
-						    <li class="w-full border-b border-gray-600 sm:border-b-0 sm:border-r ">
+						    <li class="w-full border-b border-gray-600 sm:border-b-0 sm:border-r">
 						        <div class="flex items-center ps-3">
-						            <input id="vue-checkbox-list" name="dias-trabalho" type="checkbox" value="Segunda" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 
+						            <input id="vue-checkbox-list" name="dias-trabalho" type="checkbox" value="Monday" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 
 									  focus:ring-2">
 						            <label for="segunda" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 ">Segunda</label>
 						        </div>
 						    </li>
-						    <li class="w-full border-b border-gray-600 sm:border-b-0 sm:border-r ">
+						    <li class="w-full border-b border-gray-600 sm:border-b-0 sm:border-r">
 						        <div class="flex items-center ps-3">
-						            <input id="terca" name="dias-trabalho" type="checkbox" value="Terca" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+						            <input id="terca" name="dias-trabalho" type="checkbox" value="Tuesday" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 						            <label for="react-checkbox-list" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 ">Terça</label>
 						        </div>
 						    </li>
-						    <li class="w-full border-b border-gray-600 sm:border-b-0 sm:border-r ">
+						    <li class="w-full border-b border-gray-600 sm:border-b-0 sm:border-r">
 						        <div class="flex items-center ps-3">
-						            <input id="quarta" name="dias-trabalho" type="checkbox" value="Quarta" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+						            <input id="quarta" name="dias-trabalho" type="checkbox" value="Wednesday" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 						            <label for="angular-checkbox-list" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 ">Quarta</label>
 						        </div>
 						    </li>
 						    <li class="w-full border-gray-600 sm:border-b-0 sm:border-r">
 						        <div class="flex items-center ps-3">
-						            <input id="laravel-checkbox-list" name="dias-trabalho" type="checkbox" value="Quinta" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+						            <input id="laravel-checkbox-list" name="dias-trabalho" type="checkbox" value="Thirsday" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 						            <label for="quinta" class="w-full py-3 ms-2 text-sm font-medium text-gray-900">Quinta</label>
 						        </div>
 						    </li>
 						     <li class="w-full">
 						        <div class="flex items-center ps-3">
-						            <input id="laravel-checkbox-list" name="dias-trabalho" type="checkbox" value="Sexta" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+						            <input id="laravel-checkbox-list" name="dias-trabalho" type="checkbox" value="Friday" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 						            <label for="sexta" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 ">Sexta</label>
 						        </div>
 						    </li>

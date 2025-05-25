@@ -28,7 +28,7 @@ public class RegisterPatientCommand implements Command {
 
 		var nome = req.getParameter("nome");
 		if (nome == null) {
-			System.out.print("Não está recebendo os valores1");
+			System.out.print("Não está recebendo os valores!");
 		}
 		var login = req.getParameter("login");
 		var password = req.getParameter("password");

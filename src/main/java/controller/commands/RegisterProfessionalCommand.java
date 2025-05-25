@@ -55,6 +55,38 @@ public class RegisterProfessionalCommand implements Command{
 		var estado = req.getParameter("estado");
 		var pais = req.getParameter("pais");	
 		
+		
+		System.out.println("===== DADOS RECEBIDOS DO FORMULÁRIO =====");
+		System.out.println("Login: " + login);
+		System.out.println("Senha: " + senha);
+		System.out.println("Nome completo: " + nomeCompleto);
+		System.out.println("Nome fantasia: " + nomeFantasia);
+		System.out.println("Área de atuação: " + area);
+		System.out.println("Metodologia: " + metodologia);
+
+		System.out.println("Dias de trabalho:");
+		if (diasTrabalho != null) {
+		    for (String dia : diasTrabalho) {
+		        System.out.println(" - " + dia);
+		    }
+		} else {
+		    System.out.println("Nenhum dia selecionado.");
+		}
+
+		System.out.println("Início do expediente: " + inicio);
+		System.out.println("Fim do expediente: " + fim);
+		System.out.println("Descrição: " + descricao);
+		System.out.println("CNPJ: " + cnpj);
+		System.out.println("Duração de atendimento: " + duration);
+		System.out.println("Contato: " + contato);
+		System.out.println("Rua: " + rua);
+		System.out.println("Número: " + numero_casa);
+		System.out.println("Cidade: " + cidade);
+		System.out.println("Estado: " + estado);
+		System.out.println("País: " + pais);
+		System.out.println("=========================================");
+
+		
 		Part workPart;
 		Part fotoPart;
 		

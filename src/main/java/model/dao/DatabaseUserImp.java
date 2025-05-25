@@ -72,15 +72,15 @@ public class DatabaseUserImp implements DatabaseUserDAO {
 		int ID = 0;
 		try (var connection = DatabaseConnection.getConnection();
 				var preparedStatement = connection.prepareStatement(INSERT_CLIENT, Statement.RETURN_GENERATED_KEYS)) {
-			AddressI address = cliente.getAddress();
 			
 			preparedStatement.setString(1, cliente.getClient_name());
 			preparedStatement.setString(2, cliente.getCPF());
-			preparedStatement.setInt(3, address.getID_address());
+			preparedStatement.setInt(3, cliente.getAddress().getID_address());
 			preparedStatement.setString(4, cliente.getContact());
 			preparedStatement.setString(5, cliente.getPassword());
 			preparedStatement.setString(6, cliente.getLogin());
 			preparedStatement.setString(7, cliente.getProfile());
+			preparedStatement.executeUpdate();
 			
 
 			ResultSet getIDGenerated = preparedStatement.getGeneratedKeys();
