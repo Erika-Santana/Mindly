@@ -3,6 +3,7 @@ package model.dao;
 import java.sql.ResultSet;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.mail.Address;
 
@@ -70,7 +71,7 @@ public class DatabaseUserImp implements DatabaseUserDAO {
 		
 		int ID = 0;
 		try (var connection = DatabaseConnection.getConnection();
-				var preparedStatement = connection.prepareStatement(INSERT_CLIENT)) {
+				var preparedStatement = connection.prepareStatement(INSERT_CLIENT, Statement.RETURN_GENERATED_KEYS)) {
 			AddressI address = cliente.getAddress();
 			
 			preparedStatement.setString(1, cliente.getClient_name());
@@ -98,7 +99,7 @@ public class DatabaseUserImp implements DatabaseUserDAO {
 	
 	public AddressI registerAddress(AddressI address) {
 		try(var connection = DatabaseConnection.getConnection();
-				var preparedStatement = connection.prepareStatement(REGISTER_ADDRESS, java.sql.Statement.RETURN_GENERATED_KEYS))	{
+				var preparedStatement = connection.prepareStatement(REGISTER_ADDRESS, Statement.RETURN_GENERATED_KEYS))	{
 			
 			int ID = 0;
 			preparedStatement.setString(1, address.getStreet());
@@ -175,8 +176,7 @@ public class DatabaseUserImp implements DatabaseUserDAO {
 				client.setPassword(resultado.getString("password_"));
 				int addressID = resultado.getInt("address");
 				
-				address = getAddressByID(addressID);
-				
+				address = getAddressByID(addressID);		
 				client.setAddress(address);
 				
 				

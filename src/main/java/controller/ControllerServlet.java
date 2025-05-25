@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 
 import controller.commands.RegisterPatientCommand;
+import controller.commands.RegisterProfessionalCommand;
 import controller.commands.ClickInLoginCommand;
 import controller.commands.ClickSignInCommand;
 import controller.commands.Command;
@@ -59,6 +60,10 @@ public class ControllerServlet extends HttpServlet{
 			}
 			case "register_paciente": {
 				command = new RegisterPatientCommand();
+				break;
+			}
+			case "sign-in-professional": {
+				command = new RegisterProfessionalCommand();
 				break;
 			}
 			default:

@@ -24,6 +24,7 @@ import model.entities.AddressI;
 import model.entities.Client;
 import model.entities.Professional;
 import model.entities.Specialty;
+import model.entities.WorkHourProfessional;
 
 public class RegisterProfessionalCommand implements Command{
 	private static DatabaseProfessionalDAO repositorio = ProfessionalDatabaseFactory.factory(DatabaseType.MYSQL);
@@ -36,7 +37,6 @@ public class RegisterProfessionalCommand implements Command{
 	
 		var login = req.getParameter("loginProfessional");
 		var senha = req.getParameter("passwordProfessional");
-		//var confirmarSenha = req.getParameter("passwordConfirmProfessional");
 		var nomeCompleto = req.getParameter("nome-completo");
 		var nomeFantasia = req.getParameter("nome-fantasia");
 		var area = req.getParameter("area");
@@ -46,7 +46,9 @@ public class RegisterProfessionalCommand implements Command{
 		var fim = req.getParameter("end-time");
 		var descricao = req.getParameter("message");
 		var cnpj = req.getParameter("cnpj");
+		var duration = req.getParameter("duracao");
 		var contato = req.getParameter("phone-input");
+		System.out.print(contato);
 		var rua = req.getParameter("rua");
 		var cidade = req.getParameter("cidade");
 		var numero_casa = Integer.parseInt(req.getParameter("numero-casa"));
@@ -76,39 +78,47 @@ public class RegisterProfessionalCommand implements Command{
 			fotoPart.write(fileUpload + File.separator + fileName);
 			
 			String fileNameWork = UUID.randomUUID().toString() + "_" + 
-			Paths.get(fotoPart.getSubmittedFileName()).getFileName().toString();
-			String fileUploadWork = "C:\\uploads";
-			Files.createDirectories(Paths.get(fileUpload));
+					Paths.get(fotoPart.getSubmittedFileName()).getFileName().toString();
+
 			fotoPart.write(fileUpload + File.separator + fileName);
 		
+			//Vai dar erro pois para regisrar o profissional é preciso já ter o address..
 			
-			AddressI address = new AddressI(rua, cidade, estado, numero_casa, pais);
-			Professional professional = new Professional(nomeCompleto, nomeFantasia, address,
-					descricao, cnpj, senha, login, fileNameWork);
-			int ID_approuch = repositorio.registerApprouch(metodologia);
-			int ID_area = repositorio.registerArea(area);
-			Specialty specialty = new Specialty(professional, ID_approuch, ID_area );
+			//entretanto é necessário verificar antes x opções pra não registrar antes de verifica
 			//File name work vai ser para as fotos
 			//Pegar a datetime na hora da inserção no banco.
 				
-			if(repositorio.doesProfessionalExists(professional.getCNPJ())){
+			if(repositorio.doesProfessionalExists(cnpj)){
 				req.setAttribute("error_message", "O CNPJ digitado já existe no nosso banco de dados.");
-			}else if(repositorio.doesProfessionalLoginExists(professional.getLogin())) {
+			}else if(repositorio.doesProfessionalLoginExists(login)) {
 				req.setAttribute("error_message", "Email já está cadastrado. Utilize outro email.");
 			}else {
-				req.setAttribute("message", "Cadastro realizado com sucesso!");
-				repositorio.registerProfessional(professional);
-				repositorio.registerAddress(address);
-				repositorio.register
+				
+				AddressI address = new AddressI(rua, cidade, estado, numero_casa, pais);
+			    address = repositorio.registerAddress(address);
+				Professional professional = new Professional(nomeCompleto, nomeFantasia, address,
+						descricao, cnpj, senha, login, fileNameWork, contato);
+				professional.setProfileImage(fileNameWork);
+				System.out.print(professional.toString());
+				
+				int ID_approuch = repositorio.registerApprouch(metodologia);
+				int ID_area = repositorio.registerArea(area);
+				int ID_professional = repositorio.registerProfessional(professional);	
+				professional.setID(ID_professional);
+				Specialty specialty = new Specialty(professional, ID_approuch, ID_area );
+				repositorio.registerSpecialty(specialty);
+				WorkHourProfessional horario = new WorkHourProfessional(inicio, fim, duration, diasTrabalho, specialty);
+				repositorio.registerWorkHour(horario);
+			//	req.setAttribute("message", "Cadastro realizado com sucesso!");
+	
 			}
-			
 
 		} catch (IOException | ServletException e) {
 			e.printStackTrace();
 		}
 		
 
-		return "signin_patient.jsp";
+		return "signin_professional.jsp";
 		
 	}
 

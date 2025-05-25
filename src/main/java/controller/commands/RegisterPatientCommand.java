@@ -52,7 +52,7 @@ public class RegisterPatientCommand implements Command {
 			
 			String fileName = UUID.randomUUID().toString() + "_" + 
 						Paths.get(fotoPart.getSubmittedFileName()).getFileName().toString();
-			String fileUpload = "src\\main\\webapp\\uploads";
+			String fileUpload = "C:\\uploads";
 			Files.createDirectories(Paths.get(fileUpload));
 			fotoPart.write(fileUpload + File.separator + fileName);
 			
@@ -64,10 +64,10 @@ public class RegisterPatientCommand implements Command {
 			}else if(repositorio.doesLoginExists(client.getLogin())) {
 				req.setAttribute("error_message", "Email já está cadastrado. Utilize outro email.");
 			}else {
-				req.setAttribute("message", "Cadastro realizado com sucesso!");
+				
 				repositorio.registerAddress(address);
 				repositorio.registerUser(client);
-				
+				req.setAttribute("message", "Cadastro realizado com sucesso!");
 			}
 
 		} catch (IOException | ServletException e) {

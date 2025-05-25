@@ -17,9 +17,11 @@ public class Professional {
 	private String password;
 	private String login;
 	private String workImage;
+	private String profileImage;
+	private String contato;
 
 	public Professional(String name, String trade_name, AddressI address, String description,
-			String cNPJ, String password, String login, String workImage) {
+			String cNPJ, String password, String login, String workImage, String contato) {
 		
 		this.name = name;
 		this.trade_name = trade_name;
@@ -29,6 +31,33 @@ public class Professional {
 		this.password = password;
 		this.login = login;
 		this.workImage = workImage;
+	}
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Professional [ID=" + ID + ", name=" + name + ", trade_name=" + trade_name + ", address=" + address
+				+ ", description=" + description + ", dataCreation=" + dataCreation + ", CNPJ=" + CNPJ + ", password="
+				+ password + ", login=" + login + ", workImage=" + workImage + ", profileImage=" + profileImage
+				+ ", contato=" + contato + "]";
+	}
+
+
+
+	public String getProfileImage() {
+		return profileImage;
+	}
+	
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+	public void setContato(String contato) {
+		this.contato = contato;
+	}
+	
+	public String getContato() {
+		return contato;
 	}
 	
 	public void setID(int iD) {

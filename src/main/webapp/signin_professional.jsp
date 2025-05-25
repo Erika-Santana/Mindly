@@ -14,65 +14,87 @@
 
 
 	<div class="flex items-center justify-center min-h-screen m-8">
-		<form class="max-w-4xl w-full bg-white p-8 rounded-lg shadow-lg" action="sign-in-professional" method="post">
+		<form class="max-w-4xl w-full bg-white p-8 rounded-lg shadow-lg" action="controller.do?action=sign-in-professional" method="post" enctype="multipart/form-data">
 			<div class="text-center m-4 text-xl p-4">
 				<h1 class="font-bold">Venha se juntar ao nosso time!</h1>
 			</div>
+			
+			<% if(request.getAttribute("error_message") != null){ %>
+					<div class="flex items-center p-4 mb-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+					  <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+					    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+					  </svg>
+					  <span class="sr-only">Info</span>
+					  <div>
+					    <span class="font-medium">Erro!</span> <%=request.getAttribute("error_message") %>
+					  </div>
+					</div>
+				<%}else if(request.getAttribute("message") != null){ %>
+				<div class="flex mt-4 items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
+				  <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+				    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+				  </svg>
+				  <span class="sr-only">Info</span>
+				  <div>
+				    <span class="font-medium">Successo!</span> <%= request.getAttribute("message") %>
+				  </div>
+				</div>
+				<% }; %>
 			<div class="mb-5">
-				<label for="loginProfessional" name="loginProfessional"
+				<label for="loginProfessional" 
 				class="block text-sm font-medium mb-3 text-gray-700">Login:</label>
-				<input type="email" id="loginProfessional"
+				<input type="email" name="loginProfessional" id="loginProfessional"
 					class="border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					placeholder="name@email.com" required />
 			</div>
 			<div class="mb-5">
-				<label for="password"  name="passwordProfessional" 
+				<label for="password"  
 					class="block text-sm font-medium mb-2 text-gray-700">Senha:</label>
-				<input type="password" id="passwordProfessional"
+				<input type="password" name="passwordProfessional"  id="passwordProfessional"
 					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					required />
 			</div>
 			<div class="mb-5">
-				<label for="passwordConfirmar" name="passwordConfirmProfessional" 
+				<label for="passwordConfirmar" 
 					class="block text-sm font-medium mb-3 text-gray-700">Confirmar
-					senha: </label> <input type="password" id="passwordConfirmProfessional"
+					senha: </label> <input type="password"  name="passwordConfirmProfessional"  id="passwordConfirmProfessional"
 					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					required />
 			</div>
 
 			<div class="mb-5">
-				<label for="Nome" name="nome-completo" 
+				<label for="Nome"
 
 					class="block text-sm font-medium mb-3 text-gray-700">Nome
-					completo:</label> <input type="text" id="nome-completo"
+					completo:</label> <input type="text"  name="nome-completo"  id="nome-completo"
 					class="bg-white-100 border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					required />
 			</div>
 			<div class="mb-5">
-				<label for="Nome" name="nome-fantasia" 
+				<label for="Nome" 
 					class="block text-sm font-medium mb-3 text-gray-700">Nome
-					fantasia:</label> <input type="text" id="nome-fantasia"
+					fantasia:</label> <input type="text" name="nome-fantasia"  id="nome-fantasia"
 					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
 						"
 					required />
 			</div>
 			<div class="mb-5">
-				<label for="area" name="area" 
+				<label for="area" 
 					class="block text-sm font-medium mb-3 text-gray-700">Área
-					especializada:</label> <input type="text" id="area"
+					especializada:</label> <input type="text" name="area"  id="area"
 					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					required />
 			</div>
 			<div class="mb-5">
-				<label for="metodologia" name="metodologia"
+				<label for="metodologia"
 					class="block text-sm font-medium mb-3 text-gray-700">Metodologia
-					Aplicada:</label> <input type="text" id="metodologia"
+					Aplicada:</label> <input type="text" name="metodologia" id="metodologia"
 					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					required />
@@ -146,14 +168,22 @@
 					</div>
 				</div>
 				
-				
+				<div class="mb-5">
+				<label for="duracao"
+					class="block text-sm font-medium mb-3 text-gray-700">Duração de cada sessão:</label> 
+					<input	type="text" id="duracao" name="duracao"
+					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
+						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+						"
+					required />
+				</div>
 				
 			<div class="mb-5">
 
-				<label for="message" name="message"
+				<label for="message"
 					class="block text-sm font-medium mb-3 text-gray-700">Fale
 					sobre você:</label>
-				<textarea id="message" rows="4"
+				<textarea id="message" rows="4" name="message"
 					class="block p-2.5 w-full text-sm text-gray-900 
 					bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500
 					 focus:border-blue-500"
@@ -161,21 +191,20 @@
 
 			</div>
 			<div class="mb-5">
-				<label for="cnpj" name="cnpj"
+				<label for="cnpj" 
 
 					class="block text-sm font-medium mb-3 text-gray-700">CNPJ:</label>
-				<input type="text" id="cnpj"
+				<input type="text" id="cnpj" name="cnpj"
 					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					required />
 			</div>
 
 			<div class="mb-5">
-				<label for="phone-input"  name="phone-input" 
+				<label for="phone-input"  
 					class="block text-sm font-medium mb-3 text-gray-700">Contato:</label>
 				<div class="relative">
-					<div
-						class="absolute inset-y-0 start-0 top-0 flex items-center 
+					<div class="absolute inset-y-0 start-0 top-0 flex items-center 
 						ps-3.5 pointer-events-none">
 						<svg class="w-4 h-4 text-gray-500" aria-hidden="true"
 							xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -184,7 +213,7 @@
 								d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />
             </svg>
 					</div>
-					<input type="text" id="phone-input"
+					<input type="text" id="phone-input" name="phone-input" 
 						aria-describedby="helper-text-explanation"
 						class="bg-gray-50 border border-gray-300 text-gray-900 
 						text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block
@@ -227,16 +256,15 @@
 			});</script>
 				<div class="mb-5">
 				<label for="rua"
-					class="block text-sm font-medium mb-3 text-gray-700">Rua do estabelecimento:</label> <input
-					type="text" id="rua" name="rua"
+					class="block text-sm font-medium mb-3 text-gray-700">Rua do estabelecimento:</label>
+					 <input  name="rua" type="text" id="rua"
 					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					required />
 			</div>
 			<div class="mb-5">
-				<label for="cidade"
-					class="block text-sm font-medium mb-3 text-gray-700">Cidade:</label> <input
-					type="text" id="cidade" name="cidade"
+				<label for="cidade" class="block text-sm font-medium mb-3 text-gray-700">Cidade:</label> 
+				<input	type="text" id="cidade" name="cidade"
 					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
 						"
@@ -244,9 +272,8 @@
 			</div>
 			<div class="mb-5">
 				<label for="numero-casa"
-				
-					class="block text-sm font-medium mb-3 text-gray-700">Número:</label> <input
-					type="text" id="numero-casa" name="numero-casa"
+					class="block text-sm font-medium mb-3 text-gray-700">Número:</label>
+					 <input	type="text" id="numero-casa" name="numero-casa"
 					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
 						"
@@ -254,8 +281,8 @@
 			</div>
 			<div class="mb-5">
 				<label for="estado"
-					class="block text-sm font-medium mb-3 text-gray-700">Estado:</label> <input
-					type="text" id="estado" name="estado"
+					class="block text-sm font-medium mb-3 text-gray-700">Estado:</label> 
+					<input	type="text" id="estado" name="estado"
 					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
 						"
@@ -263,8 +290,8 @@
 			</div>
 				<div class="mb-5">
 				<label for="pais"
-					class="block text-sm font-medium mb-3 text-gray-700">País:</label> <input
-					type="text" id="pais" name="pais"
+					class="block text-sm font-medium mb-3 text-gray-700">País:</label>
+					 <input type="text" id="pais" name="pais"
 					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
 						"
@@ -272,11 +299,11 @@
 			</div>
 			<div class="mb-9">
 				<label
-					class="block mb-2 text-sm font-medium text-gray-900" name="local-work"
+					class="block mb-2 text-sm font-medium text-gray-900" 
 					for="multiple_files">Insira as fotos do seu local de trabalho:</label> <input
-					class="block w-full text-sm text-gray-900
+					class="block w-full text-sm text-gray-900 
 					 border border-gray-300 rounded-lg cursor-pointer bg-gray-50
-					  focus:outline-none"
+					  focus:outline-none" name="local-work"
 					id="multiple_files" type="file" multiple>
 			</div>
 

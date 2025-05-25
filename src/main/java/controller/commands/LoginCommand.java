@@ -11,7 +11,7 @@ public class LoginCommand implements Command{
 		var login = req.getAttribute("login");
 		var password = req.getAttribute("password");
 		
-		//Funcao DAO
+		
 		
 		
 		return null;
