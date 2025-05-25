@@ -1,0 +1,9 @@
+@charset "UTF-8";
+@import "tailwindcss";
+@tailwind components;
+@tailwind utilities;
+
+p{
+	font-size: 10px
+
+ }
