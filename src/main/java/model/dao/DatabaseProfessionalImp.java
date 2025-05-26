@@ -19,7 +19,7 @@ import model.entities.WorkHourProfessional;
 public class DatabaseProfessionalImp implements DatabaseProfessionalDAO{
 
 	private static final String INSERT_PROFESSIONAL = "INSERT INTO professional_user "
-			+ "(professional_name, fantasy_name, ID_address, description_, date_creation, cnpj, password_, login, workImage, phone_number, profile_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "(professional_name, fantasy_name, ID_address, description_, cnpj, password_, login, workImage, phone_number, profile_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String DELETE_APPOINTMENT = "DELETE FROM appointment WHERE ID_professional = ?";
 	private static final String SELECT_PROFESSIONALS = "SELECT professional_name, fantasy_name, address, description, date_creation, cnpj, password, login, appointment_hour FROM professional_user";
 	private static final String SELECT_PROFESSIONALS_BY_ID = "SELECT professional_name, fantasy_name, address_ID, description_, date_creation, cnpj, password, login, appointment_hour FROM professional_user WHERE ID = ?";

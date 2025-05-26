@@ -47,8 +47,8 @@ public class RegisterProfessionalCommand implements Command{
 		var descricao = req.getParameter("message");
 		var cnpj = req.getParameter("cnpj");
 		var duration = req.getParameter("duracao");
-		var contato = req.getParameter("phone-input");
-		System.out.print(contato);
+		var phone_input = req.getParameter("phone-input");
+		System.out.print(phone_input);
 		var rua = req.getParameter("rua");
 		var cidade = req.getParameter("cidade");
 		var numero_casa = Integer.parseInt(req.getParameter("numero-casa"));
@@ -78,7 +78,7 @@ public class RegisterProfessionalCommand implements Command{
 		System.out.println("Descrição: " + descricao);
 		System.out.println("CNPJ: " + cnpj);
 		System.out.println("Duração de atendimento: " + duration);
-		System.out.println("Contato: " + contato);
+		System.out.println("Contato: " + phone_input);
 		System.out.println("Rua: " + rua);
 		System.out.println("Número: " + numero_casa);
 		System.out.println("Cidade: " + cidade);
@@ -129,7 +129,7 @@ public class RegisterProfessionalCommand implements Command{
 				AddressI address = new AddressI(rua, cidade, estado, numero_casa, pais);
 			    address = repositorio.registerAddress(address);
 				Professional professional = new Professional(nomeCompleto, nomeFantasia, address,
-						descricao, cnpj, senha, login, fileNameWork, contato);
+						descricao, cnpj, senha, login, fileNameWork, phone_input);
 				professional.setProfileImage(fileNameWork);
 				System.out.print(professional.toString());
 				

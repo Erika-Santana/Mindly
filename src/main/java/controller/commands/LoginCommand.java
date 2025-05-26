@@ -14,7 +14,7 @@ public class LoginCommand implements Command{
 		
 		
 		
-		return null;
+		return "home.jsp";
 	}
 
 }

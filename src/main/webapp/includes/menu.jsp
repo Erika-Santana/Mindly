@@ -19,7 +19,7 @@
 			<div class="text-sm lg:flex-grow">
 				<a href="#responsive-header"
 					class="block mt-4 lg:inline-block lg:mt-0 text-purple-200 hover:text-purple mr-4">
-					Sobre nós </a> <a href="#responsive-header"
+					Sobre nós </a> <a href=""
 					class="block mt-4 lg:inline-block lg:mt-0 text-purple-200 hover:text-purple mr-4">
 					Conheça a nossa equipe </a> <a href="#responsive-header"
 					class="block mt-4 lg:inline-block lg:mt-0 text-purple-200 hover:text-purple mr-4">

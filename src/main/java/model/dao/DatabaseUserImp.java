@@ -81,7 +81,6 @@ public class DatabaseUserImp implements DatabaseUserDAO {
 			preparedStatement.setString(6, cliente.getLogin());
 			preparedStatement.setString(7, cliente.getProfile());
 			preparedStatement.executeUpdate();
-			
 
 			ResultSet getIDGenerated = preparedStatement.getGeneratedKeys();
 			

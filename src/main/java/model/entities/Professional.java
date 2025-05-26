@@ -31,6 +31,7 @@ public class Professional {
 		this.password = password;
 		this.login = login;
 		this.workImage = workImage;
+		this.contato = contato;
 	}
 	
 	

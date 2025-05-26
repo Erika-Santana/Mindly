@@ -5,6 +5,7 @@ import java.io.IOException;
 import controller.commands.RegisterPatientCommand;
 import controller.commands.RegisterProfessionalCommand;
 import controller.commands.ClickInLoginCommand;
+import controller.commands.ClickInProfessionalSignInCommand;
 import controller.commands.ClickSignInCommand;
 import controller.commands.Command;
 import controller.commands.LoginCommand;
@@ -54,7 +55,19 @@ public class ControllerServlet extends HttpServlet{
 				command = new ClickInLoginCommand();
 				break;
 			}
+			case "clickAppointment": {
+				command = new ClickInLoginCommand();
+				break;
+			}
+			case "clickProfessional": {
+				command = new ClickInProfessionalSignInCommand();
+				break;
+			}
 			case "login": {
+				command = new LoginCommand();
+				break;
+			}
+			case "loginProfessional": {
 				command = new LoginCommand();
 				break;
 			}
