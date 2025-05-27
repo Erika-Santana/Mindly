@@ -24,7 +24,7 @@
                 <div class="col-start-2 col-span-3 mt-8">
                     <div class="bg-white border border-gray-200 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                         <div class="relative">
-                            <img class="w-full h-56 object-cover" src="<%="C:\\uploads" + professional.getProfileImage()%>" alt="Perfil" />
+                            <img class="w-full h-56 object-cover" src="<%=request.getContextPath() %>/images/<%= professional.getProfileImage() %>" alt="Perfil" />
                             <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                         </div>
                         <div class="p-6 text-center">
@@ -52,7 +52,7 @@
                             <div class="flex flex-col md:flex-row">
                                 <div class="relative w-full md:w-64 h-64 md:h-auto">
                                     <img class="w-full h-full object-cover md:rounded-l-xl" 
-                                         src="${empty profissional.profileImage ? 'XX' : profissional.profileImage}" 
+                                         src="<%=request.getContextPath() %>/images/<%= professional.getProfileImage() %>" 
                                          alt="${profissional.name}" />
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
                                 </div>
