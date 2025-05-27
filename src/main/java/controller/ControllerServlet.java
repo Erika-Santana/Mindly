@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import controller.commands.RegisterPatientCommand;
 import controller.commands.RegisterProfessionalCommand;
+import controller.commands.ShowProfessionalsToAppointmentCommand;
 import controller.commands.ClickAboutUsCommand;
 import controller.commands.ClickContactUsCommand;
 import controller.commands.ClickHome;
@@ -17,6 +18,7 @@ import controller.commands.ClickSignInCommand;
 import controller.commands.Command;
 import controller.commands.LoginCommand;
 import controller.commands.LoginProfessionalCommand;
+import controller.commands.LogoutCommand;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -67,8 +69,12 @@ public class ControllerServlet extends HttpServlet{
 				command = new ClickInLoginCommand();
 				break;
 			}
-			case "clickAppointment": {
+			case "cickAppointment": {
 				command = new ClickInAppointments();
+				break;
+			}
+			case "clickAppointment": {
+				command = new ShowProfessionalsToAppointmentCommand();
 				break;
 			}
 			case "clickProfessional": {
@@ -110,11 +116,13 @@ public class ControllerServlet extends HttpServlet{
 				command = new RegisterProfessionalCommand();
 				break;
 			}
+			case "logout": {
+				command = new LogoutCommand();
+				break;
+			}
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + action);
 			}
-		
-		
 		
 		page = command.execute(req, resp);
 		var dispatcher = req.getRequestDispatcher(page);

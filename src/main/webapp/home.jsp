@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +9,6 @@
 <body>
 	<script src="https://cdn.tailwindcss.com"></script>
 	<%@ include file="includes/menu_patient.jsp"%>
-	<% %>
-
 	<div class="flex justify-center min-h-screen">
 		<div
 			class="flex items-center justify-center space-x-16 w-full h-max p-8 m-4 ">

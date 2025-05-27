@@ -24,7 +24,6 @@ Padrão de projeto State*/
 	//para mudança de estado apenas do Pendente, para aceito. Os próximos estados dependerão apenas do tempo em que 
 	//foi agendado e só o sistema mudará automáticamente caso for finalizado
 	public List<Appointments> historyAppointments(int ID);
-	public List<Professional> listProfessionals();
 	public Professional getProfessionalByID(int ID);
 	public Professional getProfessionalByLogin(String login);
 	public boolean doesProfessionalExists(String CNPJ);
@@ -37,5 +36,6 @@ Padrão de projeto State*/
 	public boolean registerWorkHour(WorkHourProfessional horario);
 	public boolean registerSpecialty(Specialty specialty);
 	public boolean authenticateUser(String login, String password);
+	public List<Professional> getAllProfessional();
 	
 }

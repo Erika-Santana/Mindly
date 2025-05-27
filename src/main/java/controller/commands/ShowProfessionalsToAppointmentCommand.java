@@ -18,20 +18,13 @@ public class ShowProfessionalsToAppointmentCommand implements Command{
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) {
 		List<Professional> listProfessionals = new ArrayList<>();
-		List<Professional> listCompletaProfessionals = new ArrayList<>();
 		
 		var session = req.getSession(false);
-		if (session != null && session.getAttribute("doLogin") != null) {
-			listProfessionals = repositorio.listProfessionals();
-			
-			for(Professional prof: listProfessionals) {
-				Professional professional = repositorio.getProfessionalByID(prof.getID());
-				listCompletaProfessionals.add(professional);
-	
-			}
+		if (session != null && session.getAttribute("userType") != null) {
+			listProfessionals = repositorio.getAllProfessional();
 		
-			req.setAttribute("lista_professionals", listCompletaProfessionals);
-			return "paginaAgendamento.jsp";
+			req.setAttribute("lista_professionals", listProfessionals);
+			return "paginaAgendamentos.jsp";
 		}else {
 			req.setAttribute("doLogin", "Faça o login para realizar um agendamento");
 			return "login.jsp";

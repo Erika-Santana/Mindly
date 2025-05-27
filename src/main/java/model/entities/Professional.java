@@ -129,13 +129,9 @@ public class Professional {
 	public String getCNPJ() {
 		return CNPJ;
 	}
-	public void setCNPJ(String cNPJ) throws InvalidIdentifiers {
-		if (cNPJ.matches("\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}")) {
+	
+	public void setCNPJ(String cNPJ){
 			CNPJ = cNPJ;
-		}else {
-			throw new InvalidIdentifiers("CNPJ não é valido!");
-		}
-		
 	}
 	
 	

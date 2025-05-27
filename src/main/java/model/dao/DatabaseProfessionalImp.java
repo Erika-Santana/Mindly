@@ -24,6 +24,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
     private static final String SELECT_PROFESSIONALS_BY_ID = "SELECT professional_name, fantasy_name, ID_address, description_, date_creation, cnpj, password_, login, workImage, phone_number, profile_image FROM professional_user WHERE ID = ?";
     private static final String SELECT_PROFESSIONALS_BY_CNPJ = "SELECT professional_name, fantasy_name, ID_address, description_, date_creation, cnpj, password_, login, workImage, phone_number, profile_image FROM professional_user WHERE cnpj = ?";
     private static final String SELECT_PROFESSIONALS_BY_LOGIN = "SELECT ID, professional_name, fantasy_name, ID_address, description_, date_creation, cnpj, password_, login, workImage, phone_number, profile_image FROM professional_user WHERE login = ?";
+    private static final String SELECT_ALL_PROFESSIONALS = "SELECT ID, professional_name, fantasy_name, ID_address, description_, date_creation, cnpj, password_, login, workImage, phone_number, profile_image FROM professional_user";
     private static final String DOES_PROFESSIONAL_EXISTS = "SELECT cnpj FROM professional_user WHERE cnpj = ?";
     private static final String DOES_LOGIN_EXIST = "SELECT login FROM professional_user WHERE login = ?";
     private static final String REGISTER_ADDRESS = "INSERT INTO address (street, number_, city, state, country) VALUES (?, ?, ?, ?, ?)";
@@ -142,7 +143,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                     professional.setLogin(rs.getString("login"));
                     professional.setWorkImage(rs.getString("workImage"));
                 }
-            } catch (InvalidIdentifiers e) {
+            } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -245,17 +246,58 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
         return null;
     }
 
-    public List<Professional> listProfessionals() {
+    public List<Professional> listProfessionals(String specialty, String city, int page, int pageSize) {
         List<Professional> listProfessionals = new ArrayList<>();
+        StringBuilder sql = new StringBuilder(
+            "SELECT pu.ID, pu.professional_name, pu.fantasy_name, pu.ID_address, pu.description_, pu.cnpj, pu.password_, pu.login, pu.workImage, pu.phone_number, pu.profile_image, " +
+            "a.street, a.number_, a.city, a.state, a.country " +
+            "FROM professional_user pu " +
+            "JOIN address a ON pu.ID_address = a.ID " +
+            "LEFT JOIN user_specialty_approuch usa ON pu.ID = usa.ID_professional " +
+            "LEFT JOIN specialty_professional sp ON usa.ID_specialist = sp.ID " +
+            "WHERE 1=1"
+        );
+        
+        List<String> params = new ArrayList<>();
+        if (specialty != null && !specialty.isEmpty()) {
+            sql.append(" AND sp.specialty = ?");
+            params.add(specialty);
+        }
+        if (city != null && !city.isEmpty()) {
+            sql.append(" AND a.city = ?");
+            params.add(city);
+        }
+        
+        sql.append(" GROUP BY pu.ID, a.ID LIMIT ? OFFSET ?");
+        
+        System.out.println("SQL Query: " + sql.toString());
+        System.out.println("Parâmetros de filtro: " + params + ", LIMIT: " + pageSize + ", OFFSET: " + (page - 1) * pageSize);
+        
         try (var connection = DatabaseConnection.getConnection();
-             var preparedStatement = connection.prepareStatement(SELECT_PROFESSIONALS)) {
+             var preparedStatement = connection.prepareStatement(sql.toString())) {
+            
+            // Definir parâmetros de filtro
+            for (int i = 0; i < params.size(); i++) {
+                preparedStatement.setString(i + 1, params.get(i));
+            }
+            // Definir LIMIT e OFFSET como inteiros
+            preparedStatement.setInt(params.size() + 1, pageSize);
+            preparedStatement.setInt(params.size() + 2, (page - 1) * pageSize);
+            
             ResultSet professionals = preparedStatement.executeQuery();
             while (professionals.next()) {
                 Professional professional = new Professional();
                 professional.setID(professionals.getInt("ID"));
                 professional.setName(professionals.getString("professional_name"));
                 professional.setTrade_name(professionals.getString("fantasy_name"));
-                professional.setAddress(getAddressByID(professionals.getInt("ID_address")));
+                AddressI address = new AddressI();
+                address.setID_address(professionals.getInt("ID_address"));
+                address.setStreet(professionals.getString("street"));
+                address.setNumber(professionals.getInt("number_"));
+                address.setCity(professionals.getString("city"));
+                address.setState(professionals.getString("state"));
+                address.setCountry(professionals.getString("country"));
+                professional.setAddress(address);
                 professional.setDescription(professionals.getString("description_"));
                 professional.setCNPJ(professionals.getString("cnpj"));
                 professional.setPassword(professionals.getString("password_"));
@@ -264,9 +306,10 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                 professional.setContato(professionals.getString("phone_number"));
                 professional.setProfileImage(professionals.getString("profile_image"));
                 
-                String specialtyQuery = "SELECT sp.specialty FROM specialty_professional sp "
-                        + "INNER JOIN user_specialty_approuch usa ON sp.ID = usa.ID_specialist "
-                        + "WHERE usa.ID_professional = ?";
+                // Buscar especialidades
+                String specialtyQuery = "SELECT sp.specialty FROM specialty_professional sp " +
+                                       "INNER JOIN user_specialty_approuch usa ON sp.ID = usa.ID_specialist " +
+                                       "WHERE usa.ID_professional = ?";
                 List<String> specialties = new ArrayList<>();
                 try (var conn2 = DatabaseConnection.getConnection();
                      PreparedStatement stmt = conn2.prepareStatement(specialtyQuery)) {
@@ -276,14 +319,14 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                             specialties.add(rs.getString("specialty"));
                         }
                     }
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
                 }
                 professional.setSpecialty(specialties);
+                System.out.println("Especialidades para " + professional.getName() + ": " + specialties);
 
-                String approachQuery = "SELECT ap.approuch FROM approuch_professional ap "
-                        + "INNER JOIN user_specialty_approuch usa ON ap.ID = usa.ID_approuch "
-                        + "WHERE usa.ID_professional = ?";
+                // Buscar abordagens
+                String approachQuery = "SELECT ap.approuch FROM approuch_professional ap " +
+                                      "INNER JOIN user_specialty_approuch usa ON ap.ID = usa.ID_approuch " +
+                                      "WHERE usa.ID_professional = ?";
                 List<String> approaches = new ArrayList<>();
                 try (var conn2 = DatabaseConnection.getConnection();
                      PreparedStatement stmt = conn2.prepareStatement(approachQuery)) {
@@ -293,20 +336,61 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                             approaches.add(rs.getString("approuch"));
                         }
                     }
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
                 }
                 professional.setApproach(approaches);
+                System.out.println("Abordagens para " + professional.getName() + ": " + approaches);
 
                 listProfessionals.add(professional);
             }
         } catch (SQLException ex) {
+            System.err.println("Erro na consulta SQL: " + ex.getMessage());
             ex.printStackTrace();
-        } catch (InvalidIdentifiers e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        }
+        System.out.println("Total de profissionais retornados: " + listProfessionals.size());
         return listProfessionals;
+    }
+
+    public int countProfessionals(String specialty, String city) {
+        StringBuilder sql = new StringBuilder(
+            "SELECT COUNT(DISTINCT pu.ID) as total " +
+            "FROM professional_user pu " +
+            "JOIN address a ON pu.ID_address = a.ID " +
+            "LEFT JOIN user_specialty_approuch usa ON pu.ID = usa.ID_professional " +
+            "LEFT JOIN specialty_professional sp ON usa.ID_specialist = sp.ID " +
+            "WHERE 1=1"
+        );
+        
+        List<String> params = new ArrayList<>();
+        if (specialty != null && !specialty.isEmpty()) {
+            sql.append(" AND sp.specialty = ?");
+            params.add(specialty);
+        }
+        if (city != null && !city.isEmpty()) {
+            sql.append(" AND a.city = ?");
+            params.add(city);
+        }
+        
+        System.out.println("Count SQL Query: " + sql.toString());
+        System.out.println("Count Parâmetros: " + params);
+        
+        try (var connection = DatabaseConnection.getConnection();
+             var preparedStatement = connection.prepareStatement(sql.toString())) {
+            
+            for (int i = 0; i < params.size(); i++) {
+                preparedStatement.setString(i + 1, params.get(i));
+            }
+
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                int total = rs.getInt("total");
+                System.out.println("Total de profissionais contados: " + total);
+                return total;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erro ao contar profissionais: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return 0;
     }
 
     public AddressI getAddressByID(int ID) {
@@ -400,7 +484,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } catch (InvalidIdentifiers e) {
+        } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -429,7 +513,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } catch (InvalidIdentifiers e) {
+        } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -455,6 +539,74 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
         return false;
     }
 
+    public List<Professional> getAllProfessional(){
+    	
+    	List<Professional> listProfessional = new ArrayList<>();
+    	
+    	 Professional professional = null;
+         try (var connection = DatabaseConnection.getConnection();
+              var preparedStatement = connection.prepareStatement(SELECT_ALL_PROFESSIONALS)) {
+             ResultSet resultado = preparedStatement.executeQuery();
+             
+             while (resultado.next()) {
+                 professional = new Professional();
+                 professional.setID(resultado.getInt("ID"));
+                 professional.setName(resultado.getString("professional_name"));
+                 professional.setTrade_name(resultado.getString("fantasy_name"));
+                 professional.setAddress(getAddressByID(resultado.getInt("ID_address")));
+                 professional.setDescription(resultado.getString("description_"));
+                 professional.setCNPJ(resultado.getString("cnpj"));
+                 professional.setPassword(resultado.getString("password_"));
+                 professional.setLogin(resultado.getString("login"));
+                 professional.setWorkImage(resultado.getString("workImage"));
+                 professional.setContato(resultado.getString("phone_number"));
+                 professional.setProfileImage(resultado.getString("profile_image"));
+                 
+                 String specialtyQuery = "SELECT sp.specialty FROM specialty_professional sp "
+                         + "INNER JOIN user_specialty_approuch usa ON sp.ID = usa.ID_specialist "
+                         + "WHERE usa.ID_professional = ?";
+                 
+	                 List<String> specialties = new ArrayList<>();
+	                 try (var connection2 = DatabaseConnection.getConnection();
+	                      PreparedStatement stmt = connection2.prepareStatement(specialtyQuery)) {
+	                     stmt.setInt(1, professional.getID());
+	                     try (ResultSet rs = stmt.executeQuery()) {
+	                         while (rs.next()) {
+	                             String specialty = rs.getString("specialty");
+	                             specialties.add(specialty);
+	                         }
+	                     }
+	                 }
+	                 professional.setSpecialty(specialties);
+	                 String approachQuery = "SELECT ap.approuch FROM approuch_professional ap "
+	                         + "INNER JOIN user_specialty_approuch usa ON ap.ID = usa.ID_approuch "
+	                         + "WHERE usa.ID_professional = ?";
+	                 List<String> approaches = new ArrayList<>();
+	                 try (var connection2 = DatabaseConnection.getConnection();
+	                      PreparedStatement stmt = connection2.prepareStatement(approachQuery)) {
+	                     stmt.setInt(1, professional.getID());
+	                     try (ResultSet rs = stmt.executeQuery()) {
+	                         while (rs.next()) {
+	                             String approach = rs.getString("approuch");
+	                             approaches.add(approach);
+	                         }
+	                     }
+                 }
+                 professional.setApproach(approaches);
+                 
+                 listProfessional.add(professional);
+             }
+             
+             
+         } catch (SQLException ex) {
+             ex.printStackTrace();
+         } catch (Exception e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+         return listProfessional;
+    	
+    }
     public Professional getProfessionalByLogin(String login) {
         Professional professional = null;
         try (var connection = DatabaseConnection.getConnection();
@@ -473,10 +625,13 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                 professional.setLogin(resultado.getString("login"));
                 professional.setWorkImage(resultado.getString("workImage"));
                 professional.setContato(resultado.getString("phone_number"));
+                
+                
                 professional.setProfileImage(resultado.getString("profile_image"));
                 String specialtyQuery = "SELECT sp.specialty FROM specialty_professional sp "
                         + "INNER JOIN user_specialty_approuch usa ON sp.ID = usa.ID_specialist "
                         + "WHERE usa.ID_professional = ?";
+                
                 List<String> specialties = new ArrayList<>();
                 try (var connection2 = DatabaseConnection.getConnection();
                      PreparedStatement stmt = connection2.prepareStatement(specialtyQuery)) {
@@ -507,7 +662,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } catch (InvalidIdentifiers e) {
+        } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

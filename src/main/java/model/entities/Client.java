@@ -3,8 +3,6 @@ package model.entities;
 import exceptions.InvalidIdentifiers;
 
 public class Client {
-	
-
 	private int ID;
 	private String client_name;
 	private String CPF;
@@ -73,13 +71,7 @@ public class Client {
 	}
 
 	public void setCPF(String cPF) throws InvalidIdentifiers {
-
-		if (cPF.matches("\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}")) {
 			CPF = cPF;
-		} else {
-			throw new InvalidIdentifiers("O CPF inserido é inválido!");
-		}
-
 	}
 
 	public AddressI getAddress() {
@@ -95,12 +87,7 @@ public class Client {
 	}
 
 	public void setContact(String contact) throws InvalidIdentifiers {
-		if (contact.matches("\\d{11}")) {
 			this.contact = contact;
-		} else {
-			throw new InvalidIdentifiers("Número de contato inválido!");
-		}
-
 	}
 
 }

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="model.entities.Client"%>
+<%@page import="model.entities.Professional"%>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +11,14 @@
 <title>Sobre nós</title>
 </head>
 <body>
-
+	<% var sessionExists = request.getSession(false);
+	    Client cliente = (sessionExists != null) ? (Client) sessionExists.getAttribute("cliente") : null;
+	    Professional professional = (sessionExists != null) ? (Professional) sessionExists.getAttribute("professional") : null;
+    if (cliente != null || (cliente == null && professional == null)) { %>
 	<%@ include file="includes/menu_patient.jsp"%>
+	<% }else if( professional != null){%>
+	<%@ include file="includes/menu_professional.jsp"%>
+	<% } %>
 	<div class="flex justify-center min-h-screen">
 
 		<div
