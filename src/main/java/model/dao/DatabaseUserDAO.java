@@ -13,7 +13,7 @@ Edição dados
 */
 	
 	public boolean registerUser(Client cliente);
-	public boolean authenticateUser(Client cliente);
+	public boolean authenticateUser(String login, String password);
 	public Client getClient(String CPF);
 	public Client getClientByID(int ID);
 	public AddressI registerAddress(AddressI address);

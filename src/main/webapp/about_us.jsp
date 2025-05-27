@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<%@ include file="includes/menu.jsp"%>
+	<%@ include file="includes/menu_patient.jsp"%>
 	<div class="flex justify-center min-h-screen">
 
 		<div

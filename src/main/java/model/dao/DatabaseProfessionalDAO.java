@@ -35,5 +35,6 @@ Padrão de projeto State*/
 	public int registerArea(String area);
 	public boolean registerWorkHour(WorkHourProfessional horario);
 	public boolean registerSpecialty(Specialty specialty);
+	public boolean authenticateUser(String login, String password);
 	
 }

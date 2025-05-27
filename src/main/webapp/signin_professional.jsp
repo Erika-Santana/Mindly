@@ -10,7 +10,7 @@
 </head>
 <body>
 	<script src="https://cdn.tailwindcss.com"></script>
-	<%@ include file="includes/menu.jsp"%>
+	<%@ include file="includes/menu_patient.jsp"%>
 
 
 	<div class="flex items-center justify-center min-h-screen m-8">

@@ -110,9 +110,9 @@ public class RegisterProfessionalCommand implements Command{
 			fotoPart.write(fileUpload + File.separator + fileName);
 			
 			String fileNameWork = UUID.randomUUID().toString() + "_" + 
-					Paths.get(fotoPart.getSubmittedFileName()).getFileName().toString();
+					Paths.get(workPart.getSubmittedFileName()).getFileName().toString();
 
-			fotoPart.write(fileUpload + File.separator + fileName);
+			workPart.write(fileUpload + File.separator + fileNameWork);
 		
 			//Vai dar erro pois para regisrar o profissional é preciso já ter o address..
 			
@@ -129,19 +129,24 @@ public class RegisterProfessionalCommand implements Command{
 				AddressI address = new AddressI(rua, cidade, estado, numero_casa, pais);
 			    address = repositorio.registerAddress(address);
 				Professional professional = new Professional(nomeCompleto, nomeFantasia, address,
-						descricao, cnpj, senha, login, fileNameWork, phone_input);
-				professional.setProfileImage(fileNameWork);
+						descricao, cnpj, senha, login, fileNameWork, phone_input, fileName);
+				professional.setWorkImage(fileNameWork);
+				professional.setProfileImage(fileName);
 				System.out.print(professional.toString());
-				
-				int ID_approuch = repositorio.registerApprouch(metodologia);
-				int ID_area = repositorio.registerArea(area);
-				int ID_professional = repositorio.registerProfessional(professional);	
+				int ID_professional = repositorio.registerProfessional(professional);
 				professional.setID(ID_professional);
-				Specialty specialty = new Specialty(professional, ID_approuch, ID_area );
+				int approuch = repositorio.registerApprouch(metodologia);
+				int area_ = repositorio.registerArea(area);
+				
+				Specialty specialty = new Specialty(professional, approuch, area_);
+			
+				professional.setID(ID_professional);
+		
+				
 				repositorio.registerSpecialty(specialty);
 				WorkHourProfessional horario = new WorkHourProfessional(inicio, fim, duration, diasTrabalho, specialty);
 				repositorio.registerWorkHour(horario);
-			//	req.setAttribute("message", "Cadastro realizado com sucesso!");
+				req.setAttribute("message", "Cadastro realizado com sucesso!");
 	
 			}
 

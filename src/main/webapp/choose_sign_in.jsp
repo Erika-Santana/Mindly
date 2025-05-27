@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<%@ include file="includes/menu.jsp"%>
+	<%@ include file="includes/menu_patient.jsp"%>
 	<div class="flex items-center  text-center justify-center min-h-screen px-4">
 		<div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg border border-gray-200">
 			<div class="text-center w-full mb-6">
@@ -33,7 +33,7 @@
 					Colaborador</button>
 
 				<button type="button"
-				  onclick="window.location.href='controller.do?action=clickLogin'"
+				  onclick="window.location.href='controller.do?action=clickPatient'"
 					class="text-white bg-gradient-to-r from-rose-400 
 					to-pink-600 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 
 						font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" href="controller.do?action=login">

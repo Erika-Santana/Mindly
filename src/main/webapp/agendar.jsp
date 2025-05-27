@@ -4,18 +4,18 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-<title>Agendamento</title>
+<title>Contato</title>
 </head>
 <body>
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script src="../path/to/flowbite/dist/flowbite.min.js"></script>
 	
-	<%@ include file="includes/menu.jsp"%>
+	<%@ include file="includes/menu_patient.jsp"%>
 	
 	<div class="flex items-center justify-center min-h-screen m-8">
 		<form class="w-1/3 bg-white p-8 rounded-lg shadow-lg" action="login">
 			<div class="text-center m-4 text-xl p-4">
-				<h1 class="font-bold">Agendamento</h1>
+				<h1 class="font-bold">Contato</h1>
 			</div>
 			
 			<div class="max-w-sm mx-auto">

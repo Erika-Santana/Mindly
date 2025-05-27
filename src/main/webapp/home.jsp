@@ -9,7 +9,8 @@
 </head>
 <body>
 	<script src="https://cdn.tailwindcss.com"></script>
-	<%@ include file="includes/menu.jsp"%>
+	<%@ include file="includes/menu_patient.jsp"%>
+	<% %>
 
 	<div class="flex justify-center min-h-screen">
 		<div
@@ -23,7 +24,7 @@
 				<div class=" pl-8 flex items-center space-x-4">
 
 					<img src="images/cerebro_icone.png" class="w-8 h-8 object-cover circle">
-					<h2 class="quicksand-font font-black p-4 m-4 ">BookMyMind</h2>
+					<h2 class="quicksand-font font-black p-4 m-4 ">Mindly</h2>
 
 				</div>
 

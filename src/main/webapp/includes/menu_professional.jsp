@@ -1,10 +1,10 @@
 
 	<script src="https://cdn.tailwindcss.com"></script>
 	<nav
-		class="flex items-center justify-between flex-wrap bg-purple-400 p-6">
-		<div class="flex items-center flex-shrink-0 text-purple mr-6">
+		class="flex items-center justify-between flex-wrap bg-rose-300 p-6">
+		<div class="flex items-center flex-shrink-0 text-black mr-6">
 		<img src="images/cerebro_icone.png" alt="ícone do cérebro" class="h-8 w-8 mr-2" />
-			<span class="font-semibold text-xl quicksand-font tracking-tight">BookMyMind</span>
+			<span class="font-semibold text-xl quicksand-font tracking-tight">Mindly</span>
 		</div>
 		<div class="block lg:hidden">
 			<button
@@ -17,15 +17,14 @@
 		</div>
 		<div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
 			<div class="text-sm lg:flex-grow">
-				<a href="#responsive-header"
-					class="block mt-4 lg:inline-block lg:mt-0 text-purple-200 hover:text-purple mr-4">
-					Sobre nós </a> <a href=""
-					class="block mt-4 lg:inline-block lg:mt-0 text-purple-200 hover:text-purple mr-4">
-					Conheça a nossa equipe </a> <a href="#responsive-header"
-					class="block mt-4 lg:inline-block lg:mt-0 text-purple-200 hover:text-purple mr-4">
-					Agende com um profissional </a> <a href="#responsive-header"
-					class="block mt-4 lg:inline-block lg:mt-0 text-purple-200 hover:text-purple">
-					Contate-nos </a>
+				<a href="controller.do?action=clickAboutUs"
+					class="block mt-4 lg:inline-block lg:mt-0 text-black-200 hover:text-purple mr-4">
+					Sobre nós </a> 
+				 <a href="controller.do?action=clickMyAppointments"
+					class="block mt-4 lg:inline-block lg:mt-0 text-black-200 hover:text-purple mr-4">
+					Meus agendamentos </a> <a href="controller.do?action=clickContactUs"
+					class="block mt-4 lg:inline-block lg:mt-0 text-black-200 hover:text-purple">
+					Dúvidas? Entre em contato conosco! </a>
 			</div>
 			<div>
 				<a href="controller.do?action=clickSignIn"

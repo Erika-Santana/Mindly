@@ -4,11 +4,19 @@ import java.io.IOException;
 
 import controller.commands.RegisterPatientCommand;
 import controller.commands.RegisterProfessionalCommand;
+import controller.commands.ClickAboutUsCommand;
+import controller.commands.ClickContactUsCommand;
+import controller.commands.ClickHome;
+import controller.commands.ClickInAppointments;
 import controller.commands.ClickInLoginCommand;
 import controller.commands.ClickInProfessionalSignInCommand;
+import controller.commands.ClickInTeamProfessional;
+import controller.commands.ClickMyAppointmentsCommand;
+import controller.commands.ClickPatientSignIn;
 import controller.commands.ClickSignInCommand;
 import controller.commands.Command;
 import controller.commands.LoginCommand;
+import controller.commands.LoginProfessionalCommand;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -51,16 +59,39 @@ public class ControllerServlet extends HttpServlet{
 				command = new ClickSignInCommand();
 				break;
 			}
+			case "clickHome": {
+				command = new ClickHome();
+				break;
+			}
 			case "clickLogin": {
 				command = new ClickInLoginCommand();
 				break;
 			}
 			case "clickAppointment": {
-				command = new ClickInLoginCommand();
+				command = new ClickInAppointments();
 				break;
 			}
 			case "clickProfessional": {
 				command = new ClickInProfessionalSignInCommand();
+				break;
+			}
+			case "clickMyAppointments": {
+				command = new ClickMyAppointmentsCommand();
+				break;
+			}
+			case "clickTeamProfessionals": {
+				command = new ClickInTeamProfessional();
+				break;
+			}
+			case "clickContactUs": {
+				command = new ClickContactUsCommand();
+				break;
+				
+			}case "clickPatient": {
+				command = new ClickPatientSignIn();
+				break;
+			}case "clickAboutUs": {
+				command = new ClickAboutUsCommand();
 				break;
 			}
 			case "login": {
@@ -68,7 +99,7 @@ public class ControllerServlet extends HttpServlet{
 				break;
 			}
 			case "loginProfessional": {
-				command = new LoginCommand();
+				command = new LoginProfessionalCommand();
 				break;
 			}
 			case "register_paciente": {

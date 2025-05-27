@@ -11,7 +11,7 @@
 </head>
 <body>
 	<script src="https://cdn.tailwindcss.com"></script>
-	<%@ include file="includes/menu.jsp"%>
+	<%@ include file="includes/menu_patient.jsp"%>
 	<div class="mt-8 flex justify-center items-center">
 		<figure
 			class="relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">

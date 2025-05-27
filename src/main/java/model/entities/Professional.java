@@ -2,6 +2,7 @@ package model.entities;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import exceptions.InvalidIdentifiers;
 
@@ -12,16 +13,17 @@ public class Professional {
 	private String trade_name;
 	private AddressI address;
 	private String description;
-	private Date dataCreation;
 	private String CNPJ;
 	private String password;
 	private String login;
 	private String workImage;
 	private String profileImage;
 	private String contato;
+	private List<String> approach;
+	private List<String> specialty;
 
 	public Professional(String name, String trade_name, AddressI address, String description,
-			String cNPJ, String password, String login, String workImage, String contato) {
+			String cNPJ, String password, String login, String workImage, String contato, String perfil) {
 		
 		this.name = name;
 		this.trade_name = trade_name;
@@ -32,20 +34,31 @@ public class Professional {
 		this.login = login;
 		this.workImage = workImage;
 		this.contato = contato;
-	}
+		profileImage = perfil;
 	
-	
-	
-	@Override
-	public String toString() {
-		return "Professional [ID=" + ID + ", name=" + name + ", trade_name=" + trade_name + ", address=" + address
-				+ ", description=" + description + ", dataCreation=" + dataCreation + ", CNPJ=" + CNPJ + ", password="
-				+ password + ", login=" + login + ", workImage=" + workImage + ", profileImage=" + profileImage
-				+ ", contato=" + contato + "]";
 	}
 
+	
+	public Professional() {
+		
+	}
+	
 
-
+	public void setApproach(List<String> approach) {
+		this.approach = approach;
+	}
+	
+	public void setSpecialty(List<String> specialty) {
+		this.specialty = specialty;
+	}
+	
+	public List<String> getApproach() {
+		return approach;
+	}
+	
+	public List<String> getSpecialty() {
+		return specialty;
+	}
 	public String getProfileImage() {
 		return profileImage;
 	}
@@ -112,12 +125,7 @@ public class Professional {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Date getDataCreation() {
-		return dataCreation;
-	}
-	public void setDataCreation(Date dataCreation) {
-		this.dataCreation = dataCreation;
-	}
+	
 	public String getCNPJ() {
 		return CNPJ;
 	}

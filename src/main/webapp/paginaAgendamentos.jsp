@@ -1,3 +1,8 @@
+<%@page import="model.entities.Client"%>
+<%@ page import="java.util.List" %>
+<%@ page import="model.entities.Professional" %>
+<%@ page import="model.entities.Specialty" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,88 +16,71 @@
 </head>
 <body class="min-h-screen">
 	<script src="https://cdn.tailwindcss.com"></script>
-	<%@ include file="includes/menu.jsp"%>
 	<script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+	<%@ include file="includes/menu_patient.jsp"%>
 
-	<div class="grid grid-cols-12 gap-2 mt-16">
-		<div class="p-4 col-span-3 mt-8 text-center">
-			<div
-				class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm">
-				<a href="#"> <img class="rounded-t-lg w-full h-48 object-cover"
-					src="images/Profissional1.jpg" alt="" />
-				</a>
-				<div class="p-5">
-					<a href="#">
-						<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Noteworthy
-							technology acquisitions 2021</h5>
+
+	<div class="flex items-center justify-center w-full">
+		<div class="grid grid-cols-12 gap-2  ">
+		<% var sessionExists = request.getSession(false);
+			Client cliente = (Client) session.getAttribute("client");
+			if(cliente != null){%>
+			<div class="p-4 col-start-3 col-span-2 mt-8 text-center">
+				<div
+					class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm">
+					<a href="#"> <img class="rounded-t-lg w-full h-48 object-cover"
+						src="images/Profissional1.jpg" alt="" />
 					</a>
-					<p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here
-						are the biggest enterprise technology acquisitions of 2021 so far,
-						in reverse chronological order.</p>
-					<a href="#"
-						class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-						Read more <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-							aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-							viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="2"
-								d="M1 5h12m0 0L9 1m4 4L9 9" />
-            </svg>
-					</a>
+					<div class="p-5">
+						<a href="#">
+							<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900"><%= cliente.getClient_name() %></h5>
+						</a>
+					</div>
 				</div>
 			</div>
-		</div>
-			<div class="col-span-9 text-center">	
-				<h1 class="mb-8 quicksand-font" style="font-size:24px">Meus Agendamentos</h1>		
-				<a href="#"
-					class="flex flex-col mb-4 w-full items-center bg-white border 
-					border-gray-200 rounded-lg shadow-sm md:flex-row 
-					hover:bg-gray-100">
-					<img
-					class="w-full h-32 object-cover rounded-t-lg  
-					md:h-auto md:w-32 md:rounded-none md:rounded-s-lg"
-					src="images/Cliente.jpg" alt="">
-					<div class="flex flex-col justify-between p-4 leading-normal">
-						<h5
-							class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-							technology acquisitions 2021</h5>
-						<p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here
-							are the biggest enterprise technology acquisitions of 2021 so
-							far, in reverse chronological order.</p>
-					</div>
-				</a> <a href="#" class="flex flex-col items-center bg-white border border-gray-200 mb-4 rounded-lg shadow-sm md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-					<img
-					class="object-cover w-full rounded-t-lg h-32 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-					src="/docs/images/blog/image-4.jpg" alt="">
-					<div class="flex flex-col justify-between p-4 leading-normal">
-						<h5
-							class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-							technology acquisitions 2021</h5>
-						<p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here
-							are the biggest enterprise technology acquisitions of 2021 so
-							far, in reverse chronological order.</p>
-					</div>
-				</a> <a href="#"
-					class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-					<img
-					class="object-cover w-full rounded-t-lg h-32 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-					src="/docs/images/blog/image-4.jpg" alt="">
-					<div class="flex flex-col justify-between mb-4 p-4 leading-normal">
-						<h5
-							class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-							technology acquisitions 2021</h5>
-						<p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here
-							are the biggest enterprise technology acquisitions of 2021 so
-							far, in reverse chronological order.</p>
-					</div>
-				</a>
-
+			<div class="col-span-6 text-center ">
+				<h2 class="quicksand-font font-bold p-4 m-4" style="font-size: 20px">Profissionais
+					especializados</h2>
+				<div class=" flex items-center text-center space-x-4">
+					<img src="images/cerebro_icone.png"
+					class="w-8 h-8 object-cover circle ">
+				</div>
+				<c:forEach var="profissional" items="${professionals}">
+            <a href="professionalDetails.jsp?id=${profissional.}"
+               class="flex flex-col mb-4 w-full items-center bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row hover:bg-gray-100">
+                <img class="w-full h-32 object-cover rounded-t-lg md:h-auto md:w-32 md:rounded-none md:rounded-s-lg"
+                     src="${profissional.profileImage}" alt="${profissional.professionalName}">
+                <div class="flex flex-col justify-between p-4 leading-normal">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">${profissional.professionalName}</h5>
+                    <p class="mb-3 font-normal text-gray-700">${profissional.description}</p>
+                    <p class="mb-3 font-normal text-gray-700">${profissional.fantasyName}</p>
+                    <div class="mb-3">
+                        <h6 class="text-lg font-semibold text-gray-800">Especialidades:</h6>
+                        <ul class="list-disc list-inside font-normal text-gray-700">
+                            <c:forEach var="specialty" items="${profissional.specialties}">
+                                <li>${specialty}</li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    <div class="mb-3">
+                        <h6 class="text-lg font-semibold text-gray-800">Abordagens:</h6>
+                        <ul class="list-disc list-inside font-normal text-gray-700">
+                            <c:forEach var="approach" items="${profissional.approaches}">
+                                <li>${approach}</li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </a>
+        </c:forEach>
 
 			</div>
 			<div class="flex flex-col items-center pb-10"></div>
 		</div>
-	<%@ include file="includes/footer.jsp"%>
 
+	</div>
+		<%@ include file="includes/footer.jsp"%>
+	<%} %>
 
 </body>
 </html>
