@@ -26,13 +26,14 @@ Padrão de projeto State*/
 	public List<Appointments> historyAppointments(int ID);
 	public List<Professional> listProfessionals();
 	public Professional getProfessionalByID(int ID);
-	public Professional getProfessionalByCNPJ(String CNPJ);
+	public Professional getProfessionalByLogin(String login);
 	public boolean doesProfessionalExists(String CNPJ);
 	public boolean doesProfessionalLoginExists(String login);
 	public AddressI registerAddress(AddressI address);
 	public boolean registerWorkHour(int start_hour, int end_hour, int duration, String[] dayOfWeek, Specialty ID_professional_approuch);
 	public int registerApprouch(String approuch);
 	public int registerArea(String area);
+    public Professional getProfessionalByCNPJ(String CNPJ);
 	public boolean registerWorkHour(WorkHourProfessional horario);
 	public boolean registerSpecialty(Specialty specialty);
 	public boolean authenticateUser(String login, String password);
