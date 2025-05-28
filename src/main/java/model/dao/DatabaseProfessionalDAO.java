@@ -9,27 +9,15 @@ import model.entities.WorkHourProfessional;
 import model.entities.Professional;
 
 public interface DatabaseProfessionalDAO {
-
-	/*Cadastro prestador
-Disponibilização horários
-edição dos dados
-Busca prestadores e lista
-Histórico de pedidos 
-Padrão de projeto State*/
 	
 	
 	public int registerProfessional(Professional prestador);
-	public boolean registerWorkHour();//socorro como eu faço isso...)
-	//Faz uma página que vai mostrar todos os agendamentos do prestador. Nessa página, coloca um botão
-	//para mudança de estado apenas do Pendente, para aceito. Os próximos estados dependerão apenas do tempo em que 
-	//foi agendado e só o sistema mudará automáticamente caso for finalizado
 	public List<Appointments> historyAppointments(int ID);
 	public Professional getProfessionalByID(int ID);
 	public Professional getProfessionalByLogin(String login);
 	public boolean doesProfessionalExists(String CNPJ);
 	public boolean doesProfessionalLoginExists(String login);
 	public AddressI registerAddress(AddressI address);
-	public boolean registerWorkHour(int start_hour, int end_hour, int duration, String[] dayOfWeek, Specialty ID_professional_approuch);
 	public int registerApprouch(String approuch);
 	public int registerArea(String area);
     public Professional getProfessionalByCNPJ(String CNPJ);
@@ -37,5 +25,12 @@ Padrão de projeto State*/
 	public boolean registerSpecialty(Specialty specialty);
 	public boolean authenticateUser(String login, String password);
 	public List<Professional> getAllProfessional();
+	public List<Professional> listProfessionalByCity(String city, int page, int pageSize);
+	public List<Professional> listProfessionals(String specialty, String city, int page, int pageSize);
+    public int countProfessionalsByCity(String city);
+    public List<Professional> listProfessionalsByApproach(String approach, int page, int pageSize);
+    public List<Professional> listProfessionalsBySpecialty(String area, int page, int pageSize);
+    public int countProfessionalsByApproach(String approach);
+    public int countProfessionalsBySpecialty(String specialty);
 	
 }

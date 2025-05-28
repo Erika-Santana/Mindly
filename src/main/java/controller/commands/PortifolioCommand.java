@@ -3,12 +3,11 @@ package controller.commands;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class ClickInTeamProfessional implements Command {
-
+public class PortifolioCommand implements Command{
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) {
-		
-		return "team_professional.jsp";
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -51,41 +51,10 @@ public class RegisterProfessionalCommand implements Command{
 		System.out.print(phone_input);
 		var rua = req.getParameter("rua");
 		var cidade = req.getParameter("cidade");
-		var numero_casa = Integer.parseInt(req.getParameter("numero-casa"));
+		
 		var estado = req.getParameter("estado");
 		var pais = req.getParameter("pais");	
 		
-		
-		System.out.println("===== DADOS RECEBIDOS DO FORMULÁRIO =====");
-		System.out.println("Login: " + login);
-		System.out.println("Senha: " + senha);
-		System.out.println("Nome completo: " + nomeCompleto);
-		System.out.println("Nome fantasia: " + nomeFantasia);
-		System.out.println("Área de atuação: " + area);
-		System.out.println("Metodologia: " + metodologia);
-
-		System.out.println("Dias de trabalho:");
-		if (diasTrabalho != null) {
-		    for (String dia : diasTrabalho) {
-		        System.out.println(" - " + dia);
-		    }
-		} else {
-		    System.out.println("Nenhum dia selecionado.");
-		}
-
-		System.out.println("Início do expediente: " + inicio);
-		System.out.println("Fim do expediente: " + fim);
-		System.out.println("Descrição: " + descricao);
-		System.out.println("CNPJ: " + cnpj);
-		System.out.println("Duração de atendimento: " + duration);
-		System.out.println("Contato: " + phone_input);
-		System.out.println("Rua: " + rua);
-		System.out.println("Número: " + numero_casa);
-		System.out.println("Cidade: " + cidade);
-		System.out.println("Estado: " + estado);
-		System.out.println("País: " + pais);
-		System.out.println("=========================================");
-
 		
 		Part workPart;
 		Part fotoPart;
@@ -126,27 +95,33 @@ public class RegisterProfessionalCommand implements Command{
 				req.setAttribute("error_message", "Email já está cadastrado. Utilize outro email.");
 			}else {
 				
-				AddressI address = new AddressI(rua, cidade, estado, numero_casa, pais);
+				
+				AddressI address = new AddressI(rua, cidade, estado, 12, pais);
 			    address = repositorio.registerAddress(address);
-				Professional professional = new Professional(nomeCompleto, nomeFantasia, address,
-						descricao, cnpj, senha, login, fileNameWork, phone_input, fileName);
-				professional.setWorkImage(fileNameWork);
-				professional.setProfileImage(fileName);
-				System.out.print(professional.toString());
-				int ID_professional = repositorio.registerProfessional(professional);
-				professional.setID(ID_professional);
-				int approuch = repositorio.registerApprouch(metodologia);
-				int area_ = repositorio.registerArea(area);
+			    if (address != null) {
+			    	Professional professional = new Professional(nomeCompleto, nomeFantasia, address,
+							descricao, cnpj, senha, login, fileNameWork, phone_input, fileName);
+					professional.setWorkImage(fileNameWork);
+					professional.setProfileImage(fileName);
+					int ID_professional = repositorio.registerProfessional(professional);
+					professional.setID(ID_professional);
+					int approuch = repositorio.registerApprouch(metodologia);
+					int area_ = repositorio.registerArea(area);
+					
+					Specialty specialty = new Specialty(professional, approuch, area_);
+					
+					
+					if(repositorio.registerSpecialty(specialty) != false) {
+						WorkHourProfessional horario = new WorkHourProfessional(inicio, fim, duration, diasTrabalho, specialty);
+						if(repositorio.registerWorkHour(horario) != false) {
+							req.setAttribute("message", "Cadastro realizado com sucesso!");
+						}else {
+							req.setAttribute("error_message", "Erro ao realizar cadastro. Por favor tente novamente.");
+						}
+					}
+					
+				}
 				
-				Specialty specialty = new Specialty(professional, approuch, area_);
-			
-				professional.setID(ID_professional);
-		
-				
-				repositorio.registerSpecialty(specialty);
-				WorkHourProfessional horario = new WorkHourProfessional(inicio, fim, duration, diasTrabalho, specialty);
-				repositorio.registerWorkHour(horario);
-				req.setAttribute("message", "Cadastro realizado com sucesso!");
 	
 			}
 

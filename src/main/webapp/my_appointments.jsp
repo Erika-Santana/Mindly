@@ -12,8 +12,7 @@
 </head>
 <body>
 <body class="min-h-screen bg-gradient-to-b from-blue-50 to-gray-100">
-	<script src="https://cdn.tailwindcss.com"></script>
-	<script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+
 	<%
 	var sessionExists = request.getSession(false);
 	Client cliente = (sessionExists != null) ? (Client) sessionExists.getAttribute("cliente") : null;

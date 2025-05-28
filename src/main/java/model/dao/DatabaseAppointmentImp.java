@@ -19,17 +19,7 @@ public class DatabaseAppointmentImp implements DatabaseAppointmentsDAO{
 			+ "FROM appointment a JOIN professional_user pu ON a.ID_professional = pu.ID "
 			+ "JOIN user_specialty_approuch usa ON pu.ID = usa.ID_professional"
 			+ " JOIN approuch_professional au ON usa.ID_approuch = au.ID;";
-	private static final String GET_APPOINTMENTS_BY_ID_PROFESSIONAL = "SELECT \r\n"
-			+ "    ID,\r\n"
-			+ "    ID_professional_approuch,\r\n"
-			+ "    ID_set_hours_professional,\r\n"
-			+ "    ID_client,\r\n"
-			+ "    day_appointment,\r\n"
-			+ "    appointment_time,\r\n"
-			+ "    status_appointment,\r\n"
-			+ "    create_at\r\n"
-			+ "FROM appointment;\r\n"
-			+ "";
+	private static final String GET_APPOINTMENTS_BY_ID_PROFESSIONAL = "SELECT ID, ID_professional_approuch, ID_set_hours_professional, ID_client, day_appointment, appointment_time, status_appointment, create_at FROM appointment";
 	
 	private static DatabaseUserDAO dataUser = UserDatabaseFactory.factory(DatabaseType.MYSQL);
 	private static DatabaseProfessionalDAO dataProfessional = ProfessionalDatabaseFactory.factory(DatabaseType.MYSQL);

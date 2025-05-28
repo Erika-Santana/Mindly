@@ -4,7 +4,7 @@
 <nav class="flex items-center justify-between flex-wrap bg-purple-400 p-6">
     <div class="flex items-center flex-shrink-0 text-purple mr-6">
         <a href="controller.do?action=clickHome">
-            <img src="images/cerebro_icone.png" alt="ícone do cérebro" class="h-8 w-8 mr-2" />
+            <img src="imagem/cerebro_icone.png" alt="ícone do cérebro" class="h-8 w-8 mr-2" />
         </a>
         <span class="font-semibold text-xl quicksand-font tracking-tight">Mindly</span>
     </div>
@@ -41,7 +41,7 @@
         <div>
             <c:choose>
                 <c:when test="${not empty sessionScope.cliente or not empty sessionScope.professional}">
-                    <!-- Mostra quando o usuário está logado -->
+                
                     <div class="flex items-center space-x-4">
                         <c:if test="${not empty sessionScope.cliente}">
                             <span class="text-purple-200">Olá, ${sessionScope.cliente.client_name}</span>
@@ -51,20 +51,19 @@
                         </c:if>
                         <a href="controller.do?action=logout"
                             class="inline-block text-sm px-4 py-2 leading-none border rounded text-purple border-purple hover:border-transparent hover:text-purple-500 hover:bg-purple mt-4 lg:mt-0">
-                            Logout
+                            Sair
                         </a>
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <!-- Mostra quando o usuário não está logado -->
                     <div class="flex items-center space-x-4">
                         <a href="controller.do?action=clickSignIn"
                             class="inline-block text-sm px-4 mr-4 py-2 leading-none text-black mt-4 lg:mt-0">
-                            Sign in
+                            Cadastre-se
                         </a>
                         <a href="controller.do?action=clickLogin"
                             class="inline-block text-sm px-4 py-2 leading-none border rounded text-purple border-purple hover:border-transparent hover:text-purple-500 hover:bg-purple mt-4 lg:mt-0">
-                            Sign up
+                            Login
                         </a>
                     </div>
                 </c:otherwise>

@@ -26,7 +26,7 @@
 			<div class="text-left w-1/3">
 				<div class=" pl-8 flex items-center space-x-4">
 
-					<img src="images/cerebro_icone.png"
+					<img src="imagem/cerebro_icone.png"
 						class="w-8 h-8 object-cover circle">
 					<h2 class="quicksand-font font-black p-4 m-4"
 						style="font-size: 24px">Sobre nós</h2>
@@ -60,7 +60,7 @@
 
 			</div>
 			<div>
-				<img alt="Teste" src="images/BrainFlower.png"
+				<img alt="Teste" src="imagem/homem_about_us.png"
 					class="w-full h-96 object-cover rounded opacity-0 transition-opacity duration-2000 ease-in-out"
 					onload="this.classList.remove('opacity-0')">
 			</div>
@@ -70,14 +70,14 @@
 	<div
 		class="flex items-center justify-center bg-pink-200 space-x-16 w-full p-16 h-max ">
 		<div>
-			<img alt="Teste" src="images/BrainFlower.png"
+			<img alt="Teste" src="imagem/mulher_about_us.png"
 				class="w-full h-96 object-cover rounded opacity-0 transition-opacity duration-2000 ease-in-out"
 				onload="this.classList.remove('opacity-0')">
 		</div>
 		<div class="text-start w-1/3">
 			<div class=" flex items-center space-x-4">
 
-				<img src="images/cerebro_icone.png"
+				<img src="imagem/cerebro_icone.png"
 					class="w-8 h-8 object-cover circle ">
 				<h2 class="quicksand-font font-black p-4 m-4" style="font-size: 20px">Profissionais
 					especializados</h2>
@@ -124,7 +124,7 @@
 				</form>
 		</div>
 		<div>
-			<img alt="Teste" src="images/BrainFlower.png"
+			<img alt="Teste" src="imagem/maos_aboutus.png"
 				class="w-full h-96 object-cover rounded opacity-0 transition-opacity duration-2000 ease-in-out"
 				onload="this.classList.remove('opacity-0')">
 		</div>

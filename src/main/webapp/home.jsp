@@ -7,20 +7,19 @@
 <title>Página inicial</title>
 </head>
 <body>
-	<script src="https://cdn.tailwindcss.com"></script>
+	
 	<%@ include file="includes/menu_patient.jsp"%>
 	<div class="flex justify-center min-h-screen">
-		<div
-			class="flex items-center justify-center space-x-16 w-full h-max p-8 m-4 ">
+		<div class="flex items-center justify-center space-x-16 w-full h-max p-8 m-4 ">
 			<div>
-				<img alt="Teste" src="images/Cerebro_Home.png"
+				<img alt="Teste" src="imagem/Cerebro_Home.png"
 					class="w-full h-96 object-cover rounded opacity-0 transition-opacity duration-2000 ease-in-out"
 					onload="this.classList.remove('opacity-0')">
 			</div>
 			<div class="text-start w-1/3">
 				<div class=" pl-8 flex items-center space-x-4">
 
-					<img src="images/cerebro_icone.png" class="w-8 h-8 object-cover circle">
+					<img src="imagem/cerebro_icone.png" class="w-8 h-8 object-cover circle">
 					<h2 class="quicksand-font font-black p-4 m-4 ">Mindly</h2>
 
 				</div>
@@ -65,7 +64,7 @@
 			<div
 				class="min-w-[300px] max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm">
 				<a href="#"> <img class="rounded-t-lg"
-					src="/docs/images/blog/image-1.jpg" alt="Imagem 1" />
+					src="/docs/imagem/blog/image-1.jpg" alt="Imagem 1" />
 				</a>
 				<div class="p-5">
 					<a href="#">

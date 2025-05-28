@@ -126,7 +126,7 @@
 						    </li>
 						    <li class="w-full border-gray-600 sm:border-b-0 sm:border-r">
 						        <div class="flex items-center ps-3">
-						            <input id="laravel-checkbox-list" name="dias-trabalho" type="checkbox" value="Thirsday" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+						            <input id="laravel-checkbox-list" name="dias-trabalho" type="checkbox" value="Thursday" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
 						            <label for="quinta" class="w-full py-3 ms-2 text-sm font-medium text-gray-900">Quinta</label>
 						        </div>
 						    </li>
@@ -194,7 +194,7 @@
 				<label for="cnpj" 
 
 					class="block text-sm font-medium mb-3 text-gray-700">CNPJ:</label>
-				<input type="text" id="cnpj" name="cnpj"
+				<input type="text" id="cnpj" name="cnpj" max="18"
 					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
 						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					required />
@@ -270,15 +270,7 @@
 						"
 					required />
 			</div>
-			<div class="mb-5">
-				<label for="numero-casa"
-					class="block text-sm font-medium mb-3 text-gray-700">Número:</label>
-					 <input	type="text" id="numero-casa" name="numero-casa"
-					class="bg-white-50 border border-white-300 text-white-900 text-sm rounded-lg 
-						focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
-						"
-					required />
-			</div>
+
 			<div class="mb-5">
 				<label for="estado"
 					class="block text-sm font-medium mb-3 text-gray-700">Estado:</label> 

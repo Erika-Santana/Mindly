@@ -1,7 +1,6 @@
 package controller.commands;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import enums.DatabaseType;
@@ -10,15 +9,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.dao.DatabaseProfessionalDAO;
 import model.dao.ProfessionalDatabaseFactory;
 import model.entities.Professional;
+
+public class ClickTeamProfessional implements Command {
 	
-public class ShowProfessionalsToAppointmentCommand implements Command{
-
-
 	private static DatabaseProfessionalDAO repositorio = ProfessionalDatabaseFactory.factory(DatabaseType.MYSQL);
+
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) {
-		
-		List<Professional> listCompletaProfessionals = new ArrayList<>();
+	List<Professional> listCompletaProfessionals = new ArrayList<>();
 		
 		var session = req.getSession(false);
 		System.out.printf("Não entrou for");
@@ -33,6 +31,8 @@ public class ShowProfessionalsToAppointmentCommand implements Command{
 			req.setAttribute("doLogin", "Faça o login para realizar um agendamento");
 			return "login.jsp";
 		}
+
+
 
 	}
 
