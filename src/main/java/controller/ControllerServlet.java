@@ -128,6 +128,10 @@ public class ControllerServlet extends HttpServlet{
 				command = new PortifolioCommand();
 				break;
 			}
+			case "clickPortfolio": {
+				command = new PortifolioCommand();
+				break;
+			}
 			case "clickFilter": {
 				String filtro = req.getParameter("filtro");
 				if (filtro.equals("cidade")) {

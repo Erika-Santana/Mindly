@@ -32,5 +32,6 @@ public interface DatabaseProfessionalDAO {
     public List<Professional> listProfessionalsBySpecialty(String area, int page, int pageSize);
     public int countProfessionalsByApproach(String approach);
     public int countProfessionalsBySpecialty(String specialty);
+    public boolean doesProfessionalHasPortfolio(int idProfessional);
 	
 }

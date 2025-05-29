@@ -70,7 +70,7 @@ public class RegisterProfessionalCommand implements Command{
 				throw new ServletException("Imagem inválida!");
 			}
 			
-			//Fazer a função das fotos
+		
 			
 			String fileName = UUID.randomUUID().toString() + "_" + 
 						Paths.get(fotoPart.getSubmittedFileName()).getFileName().toString();

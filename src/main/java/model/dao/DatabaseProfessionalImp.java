@@ -1,16 +1,25 @@
 package model.dao;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import exceptions.InvalidIdentifiers;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Part;
 import model.dao.connection.DatabaseConnection;
 import model.entities.AddressI;
 import model.entities.Appointments;
+import model.entities.Images;
 import model.entities.Professional;
 import model.entities.Specialty;
 import model.entities.WorkHourProfessional;
@@ -34,7 +43,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
     private static final String INSERT_DAYS = "INSERT INTO days_of_week (ID_hours_professional, day_of_week) VALUES (?, ?)";
     private static final String GET_ADDRESS_BY_ID = "SELECT street, number_, city, state, country FROM address WHERE ID = ?";
     private static final String SELECT_AUTHENTICATE = "SELECT password_, login FROM professional_user WHERE login = ?";
-
+    private static final String SELECT_PORTFOLIO_BY_PROFESSIONAL_ID = "SELECT 1 FROM portifolio WHERE ID_professional = ? LIMIT 1";
     @Override
     public int registerProfessional(Professional prestador) {
         int ID = 0;
@@ -1074,6 +1083,97 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
 		}
         return professional;
     }
+    
+    public boolean doesProfessionalHasPortfolio(int idProfessional) {
+        
+        try (var connection2 = DatabaseConnection.getConnection();
+                PreparedStatement stmt = connection2.prepareStatement(SELECT_PORTFOLIO_BY_PROFESSIONAL_ID)) {
+
+            stmt.setInt(1, idProfessional);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next(); 
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    
+    public List<Images> listImagensByIDProfessional(int ID_professional) {
+        List<Images> imagens = new ArrayList<>();
+
+        String sql = "SELECT ID, ID_professional, imagem FROM imagemWork WHERE ID_professional = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, ID_professional);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("ID");
+                    int idProf = rs.getInt("ID_professional");
+                    String imagem = rs.getString("imagem");
+                    Professional prof = getProfessionalByID(idProf);
+                    Images img = new Images(id, prof, imagem);
+                    imagens.add(img);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return imagens;
+    }
+    
+    
+
+    
+    public Images registerImage(Professional prof, Part image) {
+        List<String> tiposPermitidos = List.of("image/jpeg", "image/png", "image/jpg");
+
+        try {
+            String contentType = image.getContentType();
+            if (!tiposPermitidos.contains(contentType)) {
+                System.err.println("Tipo de imagem inválido: " + contentType);
+                return null;
+            }
+
+            String fileName = UUID.randomUUID().toString() + "_" + 
+                              Paths.get(image.getSubmittedFileName()).getFileName().toString();
+
+            String fileUpload = "C:\\uploads";
+            Files.createDirectories(Paths.get(fileUpload));
+            image.write(fileUpload + File.separator + fileName);
+
+            try (Connection conn = DatabaseConnection.getConnection()) {
+                String sql = "INSERT INTO imagemWork (ID_professional, imagem) VALUES (?, ?)";
+                try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                    stmt.setInt(1, prof.getID());
+                    stmt.setString(2, fileName);
+                    stmt.executeUpdate();
+
+                    try (ResultSet rs = stmt.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            int generatedId = rs.getInt(1);
+                            return new Images(generatedId, prof, fileName);
+                        }
+                    }
+                }
+            }
+
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
 
 

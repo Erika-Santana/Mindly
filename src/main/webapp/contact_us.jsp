@@ -54,10 +54,7 @@
       text-sm px-5 py-2.5 mb-2  focus:outline-none  block">Enviar mensagem</button>
    </form>
 	</div>
-	
-	
-	
-	
+
     <%@ include file="includes/footer.jsp"%>
 	
 

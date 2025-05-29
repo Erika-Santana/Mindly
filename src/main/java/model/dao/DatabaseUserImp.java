@@ -177,31 +177,39 @@ public class DatabaseUserImp implements DatabaseUserDAO {
         return address;
     }
 
-    @Override
-    public Client getClientByID(int ID) {
-        Client client = null;
-        AddressI address = null;
-        try (var connection = DatabaseConnection.getConnection();
-             var preparedStatement = connection.prepareStatement(GET_CLIENT_BY_ID)) {
-            preparedStatement.setInt(1, ID);
-            ResultSet resultado = preparedStatement.executeQuery();
-            if (resultado.next()) {
-                client = new Client();
-                client.setClient_name(resultado.getString("client_name"));
-                client.setContact(resultado.getString("contact"));
-                client.setCPF(resultado.getString("cpf"));
-                client.setLogin(resultado.getString("login"));
-                client.setPassword(resultado.getString("password_"));
-                client.setProfile(resultado.getString("profile_image"));
-                int addressID = resultado.getInt("ID_address");
-                address = getAddressByID(addressID);
-                client.setAddress(address);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (InvalidIdentifiers e) {
-            e.printStackTrace();
-        }
-        return client;
-    }
+	@Override
+	public Client getClientByID(int ID) {
+
+	   
+	        Client client = null;
+	        AddressI address = null;
+	        try (var connection = DatabaseConnection.getConnection();
+	             var preparedStatement = connection.prepareStatement(GET_CLIENT_BY_ID)) {
+	            preparedStatement.setInt(1, ID);
+	            ResultSet resultado = preparedStatement.executeQuery();
+	            if (resultado.next()) {
+	                client = new Client();
+	                client.setClient_name(resultado.getString("client_name"));
+	                client.setContact(resultado.getString("contact"));
+	                client.setCPF(resultado.getString("cpf"));
+	                client.setLogin(resultado.getString("login"));
+	                client.setPassword(resultado.getString("password_"));
+	                client.setProfile(resultado.getString("profile_image"));
+	                int addressID = resultado.getInt("ID_address");
+	                address = getAddressByID(addressID);
+	                client.setAddress(address);
+	            }
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        } catch (InvalidIdentifiers e) {
+	            e.printStackTrace();
+	        }
+	        return client;
+	
+	}
+    
+    
+    
+  
+
 }

@@ -17,21 +17,13 @@ public class ClickTeamProfessional implements Command {
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) {
 	List<Professional> listCompletaProfessionals = new ArrayList<>();
+			
 		
-		var session = req.getSession(false);
-		System.out.printf("Não entrou for");
-		
-		if (session != null && session.getAttribute("userType") != null) {
 			listCompletaProfessionals = repositorio.getAllProfessional();
 
 			req.setAttribute("lista_professionals", listCompletaProfessionals);
-			return "paginaAgendamentos.jsp";
-		}else {
-			
-			req.setAttribute("doLogin", "Faça o login para realizar um agendamento");
-			return "login.jsp";
-		}
-
+			return "team_professional.jsp";
+	
 
 
 	}
