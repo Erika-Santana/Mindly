@@ -11,21 +11,15 @@
             <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-purple-200 
             sm:mb-0">
                 <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Sobre</a>
+                    <a href="controller.do?action=clickAboutUs" class="hover:underline me-4 md:me-6">Sobre</a>
                 </li>
                 <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Politica de Privacidade</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Licenciamento</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline">Contato</a>
+                    <a href="controller.do?action=clickContactUs" class="hover:underline">Contato</a>
                 </li>
             </ul>
         </div>
         <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
-        <span class="block text-sm text-rose-400 sm:text-center">© 2025 Mindly.</span>
+        <span class="block text-sm text-rose-400 sm:text-center"> 2025 Mindly.</span>
     </div>
 </footer>
 

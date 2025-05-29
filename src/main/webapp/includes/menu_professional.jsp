@@ -1,4 +1,4 @@
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<script src="https://cdn.tailwindcss.com"></script>
 	<nav
 		class="flex items-center justify-between flex-wrap bg-rose-300 p-6">

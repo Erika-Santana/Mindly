@@ -363,7 +363,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
 
         List<String> params = new ArrayList<>();
         if (specialty != null && !specialty.isEmpty()) {
-            sql.append(" AND sp.specialty = ?");
+            sql.append(" AND sp.specialty LIKE '%?%'");
             params.add(specialty);
         }
 
@@ -457,7 +457,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
         
         List<String> params = new ArrayList<>();
         if (specialty != null && !specialty.isEmpty()) {
-            sql.append(" AND sp.specialty = ?");
+            sql.append(" AND sp.specialty LIKE '%?%'");
             params.add(specialty);
         }
         if (city != null && !city.isEmpty()) {
@@ -559,7 +559,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
 
         List<String> params = new ArrayList<>();
         if (approach != null && !approach.isEmpty()) {
-            sql.append(" AND ap.approuch = ?");
+            sql.append(" AND ap.approuch LIKE '%?%'");
             params.add(approach);
         }
 
@@ -580,7 +580,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
 
             ResultSet professionals = preparedStatement.executeQuery();
             while (professionals.next()) {
-                Professional professional = new Professional();
+            	Professional professional = new Professional();
                 professional.setID(professionals.getInt("ID"));
                 professional.setName(professionals.getString("professional_name"));
                 professional.setTrade_name(professionals.getString("fantasy_name"));
@@ -594,12 +594,12 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                 professional.setAddress(address);
                 professional.setAbout_me(professionals.getString("about_me"));             
                 professional.setAbout_my_job(professionals.getString("about_my_job"));
-         
                 professional.setCNPJ(professionals.getString("cnpj"));
                 professional.setPassword(professionals.getString("password_"));
                 professional.setLogin(professionals.getString("login"));
                 professional.setContato(professionals.getString("phone_number"));
                 professional.setProfileImage(professionals.getString("profile_image"));
+             
 
                 String specialtyQuery = "SELECT sp.specialty FROM specialty_professional sp " +
                                         "INNER JOIN user_specialty_approuch usa ON sp.ID = usa.ID_specialist " +
@@ -658,7 +658,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
 
     	    List<String> params = new ArrayList<>();
     	    if (specialty != null && !specialty.isEmpty()) {
-    	        sql.append(" AND sp.specialty = ?");
+    	        sql.append(" AND sp.specialty LIKE '%?%'");
     	        params.add(specialty);
     	    }
 
@@ -701,11 +701,11 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
         
         List<String> params = new ArrayList<>();
         if (specialty != null && !specialty.isEmpty()) {
-            sql.append(" AND sp.specialty = ?");
+            sql.append(" AND sp.specialty LIKE '%?%'");
             params.add(specialty);
         }
         if (city != null && !city.isEmpty()) {
-            sql.append(" AND a.city = ?");
+            sql.append(" AND a.city LIKE '%?%'");
             params.add(city);
         }
         
@@ -743,7 +743,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
 
         List<String> params = new ArrayList<>();
         if (city != null && !city.isEmpty()) {
-            sql.append(" AND a.city = ?");
+            sql.append(" AND a.city LIKE '%?%'");
             params.add(city);
         }
 
@@ -782,7 +782,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
 
         List<String> params = new ArrayList<>();
         if (approach != null && !approach.isEmpty()) {
-            sql.append(" AND ap.approuch = ?");
+            sql.append(" AND ap.approuch LIKE '%?%'");
             params.add(approach);
         }
 

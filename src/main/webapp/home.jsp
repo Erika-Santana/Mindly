@@ -44,65 +44,29 @@
 					profissionais dedicados ao seu bem-estar e encontre apoio para os
 					desafios do dia a dia
 				</p>
-
-			<form action="controller.do?action=clickAppointment" method="post">
-				<div class="mt-8 flex justify-center">
-					<button type="button"
-						class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300
-						 font-medium rounded-lg mr-8 text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700
-						  dark:focus:ring-purple-900">Agende
-						com nossos profissionais!</button>
+				
+				<div>
+					<% if(cliente != null){ %>
+					
+					<form action="controller.do?action=clickAppointment" method="post">
+						<div class="mt-8 flex justify-center">
+							<button type="button"
+								class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300
+								 font-medium rounded-lg mr-8 text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700
+								  dark:focus:ring-purple-900">Agende
+								com nossos profissionais!</button>
+						</div>
+					</form>
+					<%} %>
+						
 				</div>
-			</form>
+
 			</div>
 			
 		</div>
 	</div>
 
-
-
-	<div class="bg-purple-400 p-16">
-		<div class="text-center">
-			<h1 class="text-2xl font-bold text-purple-900 quicksand-font m-4">Conheça Nossas Parcerias!</h1>
-			<div>
-				<p class="quicksand-font" style="font-size:18px"><strong>Descubra</strong> os profissionais que caminham conosco na missão de <strong>cuidar da saúde mental e neurológica</strong>. <br>
-				Nossos parceiros são especialistas <strong>altamente qualificados</strong>, dedicados a oferecer um atendimento <strong>humanizado</strong>, <strong>seguro</strong> e <strong>baseado em ciência</strong>. </p>
-
-			</div>
-		</div>
-		<div class="overflow-x-auto flex space-x-4 px-4 py-6 no-scrollbar">
-			<!-- Card 1 -->
-			<div
-				class="min-w-[300px] max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm">
-				<a href="#"> <img class="rounded-t-lg"
-					src="/docs/imagem/blog/image-1.jpg" alt="Imagem 1" />
-				</a>
-				<div class="p-5">
-					<a href="#">
-						<h5	class="mb-2 text-2xl quicksand-font font-bold tracking-tight text-gray-900 ">
-							Noteworthy technology acquisitions 2021</h5>
-					</a>
-					<p class="mb-3 quicksand-font text-gray-700 ">
-						Here are the biggest enterprise technology acquisitions of 2021 so
-						far, in reverse chronological order.</p>
-					<a href="#"
-						class="inline-flex items-center px-3 py-2 text-sm quicksand-font text-white  bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-						Read more <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-							aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-							viewBox="0 0 14 10">
-        				  <path stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="2"
-								d="M1 5h12m0 0L9 1m4 4L9 9" />
-        </svg>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-	<div class="mt-8 mb-8">
+	<div class="mt-4 mb-8">
 		<div>
 			<h1 class="text-center font-bold quicksand-font text-purple-700 p-8" style="font-size:24px">Perguntas Frequentes</h1>
 		</div>

@@ -125,6 +125,7 @@ public class ControllerServlet extends HttpServlet{
 				break;
 			}
 			case "viewProfessional": {
+				req.setAttribute("id", command);
 				command = new PortifolioCommand();
 				break;
 			}

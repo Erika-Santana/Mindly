@@ -14,14 +14,20 @@
 
 	<% Professional professional = null;
 
-    if (session != null && session.getAttribute("professional") != null) {
+    if (session != null && session.getAttribute("professional") != null){
         professional = (Professional) session.getAttribute("professional");
-    } else if (request.getAttribute("professional") != null) {
-        professional = (Professional) request.getAttribute("professional");
-    }
-		%>
+    	%>
+        <%@ include file="includes/menu_professional.jsp"%>
+        
+    	<%} else if(request.getAttribute("professional") == null){
+        professional = (Professional) request.getAttribute("professional"); %>
+    
+        <%@ include file="includes/menu_patient.jsp"%>
+        
+    	<%}%>
+	
 	<script src="https://cdn.tailwindcss.com"></script>
-	<%@ include file="includes/menu_patient.jsp"%>
+
 	<div class="mt-8 flex justify-center items-center">
 		<figure
 			class="relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
@@ -40,7 +46,7 @@
 
 	<div
 		class="flex flex-col gap-4 justify-center items-center bg-purple-100 p-8 mt-8">
-		<h1 class="font-semibold text-lg text-center p-4">Minha
+		<h1 class="font-semibold text-lg text-center p-4">Minha 
 			metodologia e abordagem:</h1>
 		<p><%professional.getAbout_my_job(); %></p>
 
@@ -61,7 +67,7 @@
 							class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
 							alt="">
 					</div>
-					<!-- Item 2 -->
+					
 					<div class="hidden duration-700 ease-in-out"
 						data-carousel-item="active">
 						<img
@@ -121,11 +127,8 @@
 			</div>
 		</div>
 	</div>
-	
 	</div>
 	
 	<%@ include file="includes/footer.jsp"%>
-
-
 </body>
 </html>

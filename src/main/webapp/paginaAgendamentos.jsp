@@ -211,7 +211,7 @@ if (cliente != null && cliente.getProfile() != null && !cliente.getProfile().isE
 				<div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
 					<div class="md:flex">
 						<div class="md:w-1/4">
-							<img class="w-full h-48 md:h-full object-cover"
+							<img class="w-full h- md:h-full object-cover"
 								src="<%=profile%>" alt="Foto do profissional">
 						</div>
 						<div class="p-6 md:w-3/4">
@@ -270,10 +270,12 @@ if (cliente != null && cliente.getProfile() != null && !cliente.getProfile().isE
 								<a
 									href="controller.do?action=viewProfessional&id=<%=prof.getID()%>"
 									class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm">
-									Saber mais sobre esse profissional </a>
+									Agendar </a>
 							</div>
 						</div>
 					</div>
+					
+					
 				</div>
 				<%
 				}
