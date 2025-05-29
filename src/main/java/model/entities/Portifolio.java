@@ -11,7 +11,7 @@ public class Portifolio {
 	private String aboutArea;
 	
 	public Portifolio() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public Portifolio(int iD, Professional prof, List<Images> listImages, String aboutMe, String aboutArea) {

@@ -42,7 +42,7 @@
                         </div>
                     </div>
 
-                    <p class="mt-2 text-gray-600"><%= prof.getDescription() %></p>
+                    <p class="mt-2 text-gray-600"><%= prof.getAbout_me() %></p>
 
                     <div class="mt-4">
                         <h4 class="font-semibold text-gray-700">Especialidades:</h4>

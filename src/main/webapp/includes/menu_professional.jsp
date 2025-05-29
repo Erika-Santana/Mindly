@@ -27,7 +27,7 @@
 					class="block mt-4 lg:inline-block lg:mt-0 text-black-200 hover:text-purple">
 					Dúvidas? Entre em contato conosco! </a>
 				 <a href="controller.do?action=clickPortifolio"
-					class="block mt-4 lg:inline-block lg:mt-0 text-black-200 hover:text-purple mr-4">
+					class="block ml-4 mt-4 lg:inline-block lg:mt-0 text-black-200 hover:text-purple mr-4">
 					Meu Portifólio</a>
 			</div>
 		</div>

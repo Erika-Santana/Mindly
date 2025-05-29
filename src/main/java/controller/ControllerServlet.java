@@ -34,9 +34,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/controller.do")
 @MultipartConfig(
-		 fileSizeThreshold = 1024 * 1024 * 2,
-		 maxFileSize = 1024 * 1024 * 2, 
-		 maxRequestSize = 1024 * 1024 * 2 
+		 fileSizeThreshold = 1024 * 1024 * 5,
+		 maxFileSize = 1024 * 1024 * 5, 
+		 maxRequestSize = 1024 * 1024 * 5 
 		)
 
 public class ControllerServlet extends HttpServlet{
@@ -128,7 +128,7 @@ public class ControllerServlet extends HttpServlet{
 				command = new PortifolioCommand();
 				break;
 			}
-			case "clickPortfolio": {
+			case "clickPortifolio": {
 				command = new PortifolioCommand();
 				break;
 			}

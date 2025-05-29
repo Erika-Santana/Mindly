@@ -1,3 +1,4 @@
+<%@page import="model.entities.Professional"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,6 +11,15 @@
 <title>Portifólio</title>
 </head>
 <body>
+
+	<% Professional professional = null;
+
+    if (session != null && session.getAttribute("professional") != null) {
+        professional = (Professional) session.getAttribute("professional");
+    } else if (request.getAttribute("professional") != null) {
+        professional = (Professional) request.getAttribute("professional");
+    }
+		%>
 	<script src="https://cdn.tailwindcss.com"></script>
 	<%@ include file="includes/menu_patient.jsp"%>
 	<div class="mt-8 flex justify-center items-center">
@@ -19,17 +29,12 @@
 				src="images/ImagemHome.png" alt="image description">
 			</a>
 			<figcaption class="absolute px-4 text-lg text-black bottom-6">
-				<p>Nome do profissional</p>
+				<p><% professional.getName(); %></p>
 			</figcaption>
 		</figure>
 		<div class="p-8 w-1/3">
 			<h1 class="font-bold text-x1 text-center p-4">Sobre mim:</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-				euismod, nisl a convallis sollicitudin, justo nisi tincidunt eros,
-				non dictum enim elit vitae augue. Donec nec mauris vitae justo
-				tincidunt imperdiet. Proin venenatis tincidunt nunc, eget hendrerit
-				erat pulvinar et. Integer vestibulum, s em vel ultrices vehicula,
-				justo purus sagittis nisl, vitae dictum ex orci at magna.</p>
+			<p><%professional.getAbout_me();%></p>
 		</div>
 	</div>
 
@@ -37,12 +42,7 @@
 		class="flex flex-col gap-4 justify-center items-center bg-purple-100 p-8 mt-8">
 		<h1 class="font-semibold text-lg text-center p-4">Minha
 			metodologia e abordagem:</h1>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-			euismod, nisl a convallis sollicitudin, justo nisi tincidunt eros,
-			non dictum enim elit vitae augue. Donec nec mauris vitae justo
-			tincidunt imperdiet. Proin venenatis tincidunt nunc, eget hendrerit
-			erat pulvinar et. Integer vestibulum, s em vel ultrices vehicula,
-			justo purus sagittis nisl, vitae dictum ex orci at magna.</p>
+		<p><%professional.getAbout_my_job(); %></p>
 
 	</div>
 
@@ -51,13 +51,10 @@
 					local de trabalho:</h1>
 		<div class="pb-12 pt-8 flex justify-center">
 		<div class="flex justify-center text-left gap-8 w-3/4 bg-white rounded-2xl shadow-lg p-6">
-				
-			
-
 			<div id="gallery" class="relative w-3/4 " data-carousel="slide">
-				<!-- Carousel wrapper -->
+			
 				<div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-					<!-- Item 1 -->
+			
 					<div class="hidden duration-700 ease-in-out" data-carousel-item>
 						<img
 							src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
@@ -94,7 +91,7 @@
 							alt="">
 					</div>
 				</div>
-				<!-- Slider controls -->
+		
 				<button type="button"
 					class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
 					data-carousel-prev>

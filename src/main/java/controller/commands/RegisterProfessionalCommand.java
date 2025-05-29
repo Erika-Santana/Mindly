@@ -40,7 +40,7 @@ public class RegisterProfessionalCommand implements Command {
 		var inicio = req.getParameter("start-time");
 		var fim = req.getParameter("end-time");
 		var descricao = req.getParameter("message");
-		var professionalMessage = req.getParameter("professionalMessage");
+		var professionalMessage = req.getParameter("profissionalMessage");
 		var cnpj = req.getParameter("cnpj");
 		var duration = req.getParameter("duracao");
 		var phone_input = req.getParameter("phone-input");

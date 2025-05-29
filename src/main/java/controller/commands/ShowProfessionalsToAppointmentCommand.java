@@ -21,7 +21,7 @@ public class ShowProfessionalsToAppointmentCommand implements Command{
 		List<Professional> listCompletaProfessionals = new ArrayList<>();
 		
 		var session = req.getSession(false);
-		System.out.printf("Não entrou for");
+		
 		
 		if (session != null && session.getAttribute("userType") != null) {
 			listCompletaProfessionals = repositorio.getAllProfessional();
