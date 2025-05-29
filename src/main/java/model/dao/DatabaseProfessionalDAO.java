@@ -1,9 +1,12 @@
 package model.dao;
 
+import java.util.Collection;
 import java.util.List;
 
+import jakarta.servlet.http.Part;
 import model.entities.AddressI;
 import model.entities.Appointments;
+import model.entities.Images;
 import model.entities.Specialty;
 import model.entities.WorkHourProfessional;
 import model.entities.Professional;
@@ -33,5 +36,6 @@ public interface DatabaseProfessionalDAO {
     public int countProfessionalsByApproach(String approach);
     public int countProfessionalsBySpecialty(String specialty);
     public boolean doesProfessionalHasPortfolio(int idProfessional);
-	
+    public List<Images> getImagesByProfessional(Professional prof);
+    public boolean saveImages(Professional prof, Collection<Part> parts);
 }

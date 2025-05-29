@@ -12,27 +12,28 @@ public class Professional {
 	private String name;
 	private String trade_name;
 	private AddressI address;
-	private String description;
+	private String about_me;
+	private String about_my_job;
 	private String CNPJ;
 	private String password;
 	private String login;
-	private String workImage;
+	private List<String> workImage;
 	private String profileImage;
 	private String contato;
 	private List<String> approach;
 	private List<String> specialty;
 
-	public Professional(String name, String trade_name, AddressI address, String description,
-			String cNPJ, String password, String login, String workImage, String contato, String perfil) {
+	public Professional(String name, String trade_name, AddressI address, String about_me, String about_my_job,
+			String cNPJ, String password, String login, String contato, String perfil) {
 		
 		this.name = name;
 		this.trade_name = trade_name;
 		this.address = address;
-		this.description = description;
+		this.about_me = about_me;
+		this.about_my_job = about_my_job;
 		CNPJ = cNPJ;
 		this.password = password;
 		this.login = login;
-		this.workImage = workImage;
 		this.contato = contato;
 		profileImage = perfil;
 	
@@ -43,6 +44,13 @@ public class Professional {
 		
 	}
 	
+	public void setAbout_me(String about_me) {
+		this.about_me = about_me;
+	}
+	
+	public String getAbout_me() {
+		return about_me;
+	}
 
 	public void setApproach(List<String> approach) {
 		this.approach = approach;
@@ -82,13 +90,14 @@ public class Professional {
 		return ID;
 	}
 	
-	public void setWorkImage(String workImage) {
+	public void setWorkImage(List<String> workImage) {
 		this.workImage = workImage;
 	}
 	
-	public String getWorkImage() {
+	public List<String> getWorkImage() {
 		return workImage;
 	}
+	
 	public String getPassword() {
 		return password;
 	}
@@ -119,11 +128,13 @@ public class Professional {
 	public void setAddress(AddressI address) {
 		this.address = address;
 	}
-	public String getDescription() {
-		return description;
+
+	public void setAbout_my_job(String about_my_job) {
+		this.about_my_job = about_my_job;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	
+	public String getAbout_my_job() {
+		return about_my_job;
 	}
 	
 	public String getCNPJ() {

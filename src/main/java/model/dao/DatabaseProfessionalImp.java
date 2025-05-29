@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,11 +28,11 @@ import model.entities.WorkHourProfessional;
 public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
 
     private static final String INSERT_PROFESSIONAL = "INSERT INTO professional_user "
-            + "(professional_name, fantasy_name, ID_address, description_, cnpj, password_, login, workImage, phone_number, profile_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SELECT_PROFESSIONALS_BY_ID = "SELECT professional_name, fantasy_name, ID_address, description_, date_creation, cnpj, password_, login, workImage, phone_number, profile_image FROM professional_user WHERE ID = ?";
-    private static final String SELECT_PROFESSIONALS_BY_CNPJ = "SELECT professional_name, fantasy_name, ID_address, description_, date_creation, cnpj, password_, login, workImage, phone_number, profile_image FROM professional_user WHERE cnpj = ?";
-    private static final String SELECT_PROFESSIONALS_BY_LOGIN = "SELECT ID, professional_name, fantasy_name, ID_address, description_, date_creation, cnpj, password_, login, workImage, phone_number, profile_image FROM professional_user WHERE login = ?";
-    private static final String SELECT_ALL_PROFESSIONALS = "SELECT ID, professional_name, fantasy_name, ID_address, description_, date_creation, cnpj, password_, login, workImage, phone_number, profile_image FROM professional_user";
+            + "(professional_name, fantasy_name, ID_address, about_me, about_my_job, cnpj, password_, login, phone_number, profile_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SELECT_PROFESSIONALS_BY_ID = "SELECT professional_name, fantasy_name, ID_address, about_me, about_my_job, date_creation, cnpj, password_, login, phone_number, profile_image FROM professional_user WHERE ID = ?";
+    private static final String SELECT_PROFESSIONALS_BY_CNPJ = "SELECT professional_name, fantasy_name, ID_address, about_me, about_my_job, date_creation, cnpj, password_, login,  phone_number, profile_image FROM professional_user WHERE cnpj = ?";
+    private static final String SELECT_PROFESSIONALS_BY_LOGIN = "SELECT ID, professional_name, fantasy_name, ID_address, about_me, about_my_job, date_creation, cnpj, password_, login, phone_number, profile_image FROM professional_user WHERE login = ?";
+    private static final String SELECT_ALL_PROFESSIONALS = "SELECT ID, professional_name, fantasy_name, ID_address, about_me, about_my_job, date_creation, cnpj, password_, login, phone_number, profile_image FROM professional_user";
     private static final String DOES_PROFESSIONAL_EXISTS = "SELECT cnpj FROM professional_user WHERE cnpj = ?";
     private static final String DOES_LOGIN_EXIST = "SELECT login FROM professional_user WHERE login = ?";
     private static final String REGISTER_ADDRESS = "INSERT INTO address (street, number_, city, state, country) VALUES (?, ?, ?, ?, ?)";
@@ -53,11 +54,11 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
             preparedStatement.setString(1, prestador.getName());
             preparedStatement.setString(2, prestador.getTrade_name());
             preparedStatement.setInt(3, prestador.getAddress().getID_address());
-            preparedStatement.setString(4, prestador.getDescription());
-            preparedStatement.setString(5, prestador.getCNPJ());
-            preparedStatement.setString(6, prestador.getPassword());
-            preparedStatement.setString(7, prestador.getLogin());
-            preparedStatement.setString(8, prestador.getWorkImage());
+            preparedStatement.setString(4, prestador.getAbout_me());
+            preparedStatement.setString(5, prestador.getAbout_my_job());
+            preparedStatement.setString(6, prestador.getCNPJ());
+            preparedStatement.setString(7, prestador.getPassword());
+            preparedStatement.setString(8, prestador.getLogin());
             preparedStatement.setString(9, prestador.getContato());
             preparedStatement.setString(10, prestador.getProfileImage());
             preparedStatement.executeUpdate();
@@ -129,8 +130,8 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
     public Professional findById(int id) throws SQLException {
         Professional professional = null;
         AddressI address = null;
-        String professionalQuery = "SELECT ID, professional_name, fantasy_name, ID_address, description_, "
-                + "profile_image, phone_number, date_creation, cnpj, login, workImage "
+        String professionalQuery = "SELECT ID, professional_name, fantasy_name, ID_address, about_me, about_my_job, "
+                + "profile_image, phone_number, date_creation, cnpj, login"
                 + "FROM professional_user WHERE ID = ?";
         try (var connection = DatabaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(professionalQuery)) {
@@ -143,12 +144,13 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                     professional.setTrade_name(rs.getString("fantasy_name"));
                     address = getAddressByID(rs.getInt("ID_address"));
                     professional.setAddress(address);
-                    professional.setDescription(rs.getString("description_"));
+                    professional.setAbout_me(rs.getString("about_me"));
+                    professional.setAbout_my_job(rs.getString("about_my_job"));
                     professional.setProfileImage(rs.getString("profile_image"));
                     professional.setContato(rs.getString("phone_number"));
                     professional.setCNPJ(rs.getString("cnpj"));
                     professional.setLogin(rs.getString("login"));
-                    professional.setWorkImage(rs.getString("workImage"));
+                
                 }
             } catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -257,7 +259,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
     	
     	    List<Professional> listProfessionals = new ArrayList<>();
     	    StringBuilder sql = new StringBuilder(
-    	        "SELECT pu.ID, pu.professional_name, pu.fantasy_name, pu.ID_address, pu.description_, pu.cnpj, pu.password_, pu.login, pu.workImage, pu.phone_number, pu.profile_image, " +
+    	        "SELECT pu.ID, pu.professional_name, pu.fantasy_name, pu.ID_address, pu.about_me, pu.about_my_job, pu.cnpj, pu.password_, pu.login, pu.phone_number, pu.profile_image, " +
     	        "a.street, a.number_, a.city, a.state, a.country " +
     	        "FROM professional_user pu " +
     	        "JOIN address a ON pu.ID_address = a.ID " +
@@ -296,11 +298,11 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
     	            address.setState(professionals.getString("state"));
     	            address.setCountry(professionals.getString("country"));
     	            professional.setAddress(address);
-    	            professional.setDescription(professionals.getString("description_"));
+    	            professional.setAbout_me(professionals.getString("about_me"));
+    	            professional.setAbout_my_job(professionals.getString("about_my_job"));
     	            professional.setCNPJ(professionals.getString("cnpj"));
     	            professional.setPassword(professionals.getString("password_"));
     	            professional.setLogin(professionals.getString("login"));
-    	            professional.setWorkImage(professionals.getString("workImage"));
     	            professional.setContato(professionals.getString("phone_number"));
     	            professional.setProfileImage(professionals.getString("profile_image"));
 
@@ -350,7 +352,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
 
         List<Professional> listProfessionals = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
-            "SELECT pu.ID, pu.professional_name, pu.fantasy_name, pu.ID_address, pu.description_, pu.cnpj, pu.password_, pu.login, pu.workImage, pu.phone_number, pu.profile_image, " +
+            "SELECT pu.ID, pu.professional_name, pu.fantasy_name, pu.ID_address, pu.about_me, pu.about_my_job, pu.cnpj, pu.password_, pu.login, pu.phone_number, pu.profile_image, " +
             "a.street, a.number_, a.city, a.state, a.country " +
             "FROM professional_user pu " +
             "JOIN address a ON pu.ID_address = a.ID " +
@@ -391,11 +393,10 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                 address.setState(professionals.getString("state"));
                 address.setCountry(professionals.getString("country"));
                 professional.setAddress(address);
-                professional.setDescription(professionals.getString("description_"));
+                professional.setAbout_my_job(professionals.getString("about_my_job"));
                 professional.setCNPJ(professionals.getString("cnpj"));
                 professional.setPassword(professionals.getString("password_"));
                 professional.setLogin(professionals.getString("login"));
-                professional.setWorkImage(professionals.getString("workImage"));
                 professional.setContato(professionals.getString("phone_number"));
                 professional.setProfileImage(professionals.getString("profile_image"));
 
@@ -445,7 +446,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
     public List<Professional> listProfessionals(String specialty, String city, int page, int pageSize) {
         List<Professional> listProfessionals = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
-            "SELECT pu.ID, pu.professional_name, pu.fantasy_name, pu.ID_address, pu.description_, pu.cnpj, pu.password_, pu.login, pu.workImage, pu.phone_number, pu.profile_image, " +
+            "SELECT pu.ID, pu.professional_name, pu.fantasy_name, pu.ID_address, pu.about_me, pu.about_my_job, pu.cnpj, pu.password_, pu.login,  pu.phone_number, pu.profile_image, " +
             "a.street, a.number_, a.city, a.state, a.country " +
             "FROM professional_user pu " +
             "JOIN address a ON pu.ID_address = a.ID " +
@@ -493,11 +494,12 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                 address.setState(professionals.getString("state"));
                 address.setCountry(professionals.getString("country"));
                 professional.setAddress(address);
-                professional.setDescription(professionals.getString("description_"));
+                professional.setAbout_me(professionals.getString("about_me"));             
+                professional.setAbout_my_job(professionals.getString("about_my_job"));
+         
                 professional.setCNPJ(professionals.getString("cnpj"));
                 professional.setPassword(professionals.getString("password_"));
                 professional.setLogin(professionals.getString("login"));
-                professional.setWorkImage(professionals.getString("workImage"));
                 professional.setContato(professionals.getString("phone_number"));
                 professional.setProfileImage(professionals.getString("profile_image"));
              
@@ -546,7 +548,7 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
     public List<Professional> listProfessionalsByApproach(String approach, int page, int pageSize) {
         List<Professional> listProfessionals = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
-            "SELECT pu.ID, pu.professional_name, pu.fantasy_name, pu.ID_address, pu.description_, pu.cnpj, pu.password_, pu.login, pu.workImage, pu.phone_number, pu.profile_image, " +
+            "SELECT pu.ID, pu.professional_name, pu.fantasy_name, pu.ID_address, pu.about_me, pu_about_my_job, pu.cnpj, pu.password_, pu.login, pu.phone_number, pu.profile_image, " +
             "a.street, a.number_, a.city, a.state, a.country " +
             "FROM professional_user pu " +
             "JOIN address a ON pu.ID_address = a.ID " +
@@ -590,11 +592,12 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                 address.setState(professionals.getString("state"));
                 address.setCountry(professionals.getString("country"));
                 professional.setAddress(address);
-                professional.setDescription(professionals.getString("description_"));
+                professional.setAbout_me(professionals.getString("about_me"));             
+                professional.setAbout_my_job(professionals.getString("about_my_job"));
+         
                 professional.setCNPJ(professionals.getString("cnpj"));
                 professional.setPassword(professionals.getString("password_"));
                 professional.setLogin(professionals.getString("login"));
-                professional.setWorkImage(professionals.getString("workImage"));
                 professional.setContato(professionals.getString("phone_number"));
                 professional.setProfileImage(professionals.getString("profile_image"));
 
@@ -889,11 +892,12 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                 professional.setName(resultado.getString("professional_name"));
                 professional.setTrade_name(resultado.getString("fantasy_name"));
                 professional.setAddress(getAddressByID(resultado.getInt("ID_address")));
-                professional.setDescription(resultado.getString("description_"));
+                professional.setAbout_me(resultado.getString("about_me"));             
+                professional.setAbout_my_job(resultado.getString("about_my_job"));
+         
                 professional.setCNPJ(resultado.getString("cnpj"));
                 professional.setPassword(resultado.getString("password_"));
                 professional.setLogin(resultado.getString("login"));
-                professional.setWorkImage(resultado.getString("workImage"));
                 professional.setContato(resultado.getString("phone_number"));
                 professional.setProfileImage(resultado.getString("profile_image"));
             }
@@ -918,11 +922,12 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                 professional.setName(resultado.getString("professional_name"));
                 professional.setTrade_name(resultado.getString("fantasy_name"));
                 professional.setAddress(getAddressByID(resultado.getInt("ID_address")));
-                professional.setDescription(resultado.getString("description_"));
+                professional.setAbout_me(resultado.getString("about_me"));             
+                professional.setAbout_my_job(resultado.getString("about_my_job"));
+         
                 professional.setCNPJ(resultado.getString("cnpj"));
                 professional.setPassword(resultado.getString("password_"));
                 professional.setLogin(resultado.getString("login"));
-                professional.setWorkImage(resultado.getString("workImage"));
                 professional.setContato(resultado.getString("phone_number"));
                 professional.setProfileImage(resultado.getString("profile_image"));
             }
@@ -969,11 +974,12 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                  professional.setName(resultado.getString("professional_name"));
                  professional.setTrade_name(resultado.getString("fantasy_name"));
                  professional.setAddress(getAddressByID(resultado.getInt("ID_address")));
-                 professional.setDescription(resultado.getString("description_"));
+                 professional.setAbout_me(resultado.getString("about_me"));             
+                 professional.setAbout_my_job(resultado.getString("about_my_job"));
+          
                  professional.setCNPJ(resultado.getString("cnpj"));
                  professional.setPassword(resultado.getString("password_"));
                  professional.setLogin(resultado.getString("login"));
-                 professional.setWorkImage(resultado.getString("workImage"));
                  professional.setContato(resultado.getString("phone_number"));
                  professional.setProfileImage(resultado.getString("profile_image"));
                  
@@ -1034,11 +1040,12 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
                 professional.setName(resultado.getString("professional_name"));
                 professional.setTrade_name(resultado.getString("fantasy_name"));
                 professional.setAddress(getAddressByID(resultado.getInt("ID_address")));
-                professional.setDescription(resultado.getString("description_"));
+                professional.setAbout_me(resultado.getString("about_me"));             
+                professional.setAbout_my_job(resultado.getString("about_my_job"));
+         
                 professional.setCNPJ(resultado.getString("cnpj"));
                 professional.setPassword(resultado.getString("password_"));
                 professional.setLogin(resultado.getString("login"));
-                professional.setWorkImage(resultado.getString("workImage"));
                 professional.setContato(resultado.getString("phone_number"));
                 
                 
@@ -1083,6 +1090,65 @@ public class DatabaseProfessionalImp implements DatabaseProfessionalDAO {
 		}
         return professional;
     }
+    
+    public List<Images> getImagesByProfessional(Professional prof) {
+        List<Images> imagens = new ArrayList<>();
+
+        String sql = "SELECT ID, imagem FROM imagemWork WHERE ID_professional = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, prof.getID());
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int idImagem = rs.getInt("ID");
+                    String nomeImagem = rs.getString("imagem");
+                    Images img = new Images(idImagem, prof, nomeImagem);
+                    imagens.add(img);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return imagens;
+    }
+
+
+    public boolean saveImages(Professional prof, Collection<Part> parts) {
+        String fileUpload = "C:\\uploads";
+
+        try {
+            Files.createDirectories(Paths.get(fileUpload));
+
+            for (Part part : parts) {
+                if (part.getName().equals("local-work") && part.getSize() > 0) {
+                    String fileName = UUID.randomUUID().toString() + "_" +
+                            Paths.get(part.getSubmittedFileName()).getFileName().toString();
+
+                    part.write(fileUpload + File.separator + fileName);
+
+                    try (Connection conn = DatabaseConnection.getConnection()) {
+                        String sql = "INSERT INTO imagemWork (ID_professional, imagem) VALUES (?, ?)";
+                        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                            stmt.setInt(1, prof.getID());
+                            stmt.setString(2, fileName);
+                            stmt.executeUpdate();
+                        }
+                    }
+                }
+            }
+            
+            return true;
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     
     public boolean doesProfessionalHasPortfolio(int idProfessional) {
         

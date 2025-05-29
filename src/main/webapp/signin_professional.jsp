@@ -187,8 +187,20 @@
 					class="block p-2.5 w-full text-sm text-gray-900 
 					bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500
 					 focus:border-blue-500"
-					placeholder="Descreva a sua jornada, sobre a sua metodologia profissional, e como você busca ajudar as pessoas que solicitam o seu serviço..."></textarea>
+					placeholder="Descreva a sua jornada..."></textarea>
 
+			</div>
+			
+				<div class="mb-5">
+
+				<label for="message"
+					class="block text-sm font-medium mb-3 text-gray-700">Fale sobre a sua metodologia e a área de especialização:</label>
+				<textarea id="messageMe" rows="4" name="profissionalMessage"
+					class="block p-2.5 w-full text-sm text-gray-900 
+					bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500
+					 focus:border-blue-500"
+					placeholder="Descreva sobre a sua metodologia profissional, e como você busca ajudar as pessoas que solicitam o seu serviço..."></textarea>
+					
 			</div>
 			<div class="mb-5">
 				<label for="cnpj" 
